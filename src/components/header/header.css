@@ -1,0 +1,22 @@
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__title {
+  font-size: 30px;
+}
+
+.header__searchbox {
+  display: flex;
+  gap: 20px;
+}
+
+.searchbox__search {
+  width: 300px;
+}
+
+.searchbox__button {
+}
