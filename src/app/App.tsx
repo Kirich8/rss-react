@@ -2,19 +2,26 @@ import './App.css';
 import React from 'react';
 import Header from '../components/header/Header';
 import Main from '../components/main/Main';
+import { apiService } from '../utils/services/ApiServices';
 
 class App extends React.Component {
-  constructor({}, {}) {
-    super({}, {});
+  state = {
+    characters: [],
+  };
 
-    this.state = [];
+  async componentDidMount() {
+    this.setState({ characters: await apiService.getCharacters() });
   }
 
   render(): React.ReactNode {
     return (
       <>
         <Header />
-        <Main />
+        {this.state.characters.length ? (
+          <Main characters={this.state.characters} />
+        ) : (
+          <p>Not found</p>
+        )}
       </>
     );
   }

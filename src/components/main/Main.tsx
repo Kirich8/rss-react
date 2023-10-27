@@ -1,17 +1,18 @@
+import { ICharacters } from '../../utils/types/ICharacters';
 import './main.css';
 import React from 'react';
 
-class Main extends React.Component {
-  constructor({}, {}) {
-    super({}, {});
+type MainProps = {
+  characters: ICharacters[];
+};
 
-    this.state = [];
-  }
-
+class Main extends React.Component<MainProps> {
   render(): React.ReactNode {
     return (
       <main className="main">
-        <h2>Content</h2>
+        {this.props.characters.map((character) => {
+          return character.name;
+        })}
       </main>
     );
   }
