@@ -1,7 +1,7 @@
 import './App.css';
 import React from 'react';
 import Header from '../components/header/Header';
-import Main from '../components/main/Main';
+import Main from '../pages/main/Main';
 import { apiService } from '../utils/services/ApiServices';
 
 class App extends React.Component {

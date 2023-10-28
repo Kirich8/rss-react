@@ -1,6 +1,6 @@
 import './main.css';
 import React from 'react';
-import HeroCard from '../hero-card/HeroCard';
+import HeroCard from '../../components/hero-card/HeroCard';
 import { ICharacter } from '../../utils/types/ICharacter';
 
 type MainProps = {
