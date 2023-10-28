@@ -1,7 +1,7 @@
-import { ICharacter } from '../../utils/types/ICharacter';
-import HeroCard from '../hero-card/HeroCard';
-import React from 'react';
 import './main.css';
+import React from 'react';
+import HeroCard from '../hero-card/HeroCard';
+import { ICharacter } from '../../utils/types/ICharacter';
 
 type MainProps = {
   characters: ICharacter[];
