@@ -1,14 +1,21 @@
 import './header.css';
 import React from 'react';
 
-class Header extends React.Component {
+type HeaderProps = {
+  changeCurrentCharacter: (character: string) => void;
+};
+
+class Header extends React.Component<HeaderProps> {
   render(): React.ReactNode {
     return (
       <header className="header">
-        <h1 className="header__title">Heroes</h1>
+        <h1 className="header__title">Marvel Heroes</h1>
         <div className="header__searchbox searchbox">
           <input type="search" className="searchbox__search"></input>
-          <button type="submit" className="searchbox__button">
+          <button
+            className="searchbox__button"
+            onClick={() => this.props.changeCurrentCharacter('thor')}
+          >
             Search
           </button>
         </div>

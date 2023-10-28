@@ -1,4 +1,4 @@
-import { ICharacters } from '../types/ICharacters';
+import { ICharacter } from '../types/ICharacter';
 
 class ApiService {
   private baseLink: string = 'http://gateway.marvel.com/v1/public/characters';
@@ -7,10 +7,23 @@ class ApiService {
     hash: '196c7fb26c971fb7a052fb64ebdd0616',
   };
 
-  public async getCharacters(): Promise<void | ICharacters[]> {
+  public async getCharacters(): Promise<void | ICharacter[]> {
     try {
       const response = await fetch(
-        `${this.baseLink}?ts=1&apikey=${this.queryParams.apikey}&hash=${this.queryParams.hash}&limit=10`
+        `${this.baseLink}?ts=1&apikey=${this.queryParams.apikey}&hash=${this.queryParams.hash}&limit=12`
+      );
+      const characters = await response.json();
+
+      return characters.data.results;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  public async getCurrentCharacter(name: string): Promise<void | ICharacter[]> {
+    try {
+      const response = await fetch(
+        `${this.baseLink}?ts=1&apikey=${this.queryParams.apikey}&hash=${this.queryParams.hash}&limit=12&nameStartsWith=${name}`
       );
       const characters = await response.json();
 
