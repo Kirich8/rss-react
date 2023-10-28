@@ -3,6 +3,7 @@ import React from 'react';
 import Header from '../components/header/Header';
 import Main from '../pages/main/Main';
 import { apiService } from '../utils/services/ApiServices';
+import CardNotFound from '../components/card-not-found/CardNotFound';
 
 class App extends React.Component {
   state = {
@@ -28,7 +29,7 @@ class App extends React.Component {
         {this.state.characters.length ? (
           <Main characters={this.state.characters} />
         ) : (
-          <p>Not found</p>
+          <CardNotFound />
         )}
       </>
     );
