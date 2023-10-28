@@ -6,21 +6,19 @@ import { apiService } from '../utils/services/ApiServices';
 
 class App extends React.Component {
   state = {
-    currentCharacter: '',
     characters: [],
   };
 
   changeCurrentCharacter = async (character: string) => {
     this.setState({
-      currentCharacter: character,
-      characters: await apiService.getCurrentCharacter(character),
+      characters: character
+        ? await apiService.getCurrentCharacter(character)
+        : await apiService.getCharacters(),
     });
-    console.log(this.state.currentCharacter);
   };
 
   async componentDidMount() {
     this.setState({ characters: await apiService.getCharacters() });
-    console.log(this.state);
   }
 
   render(): React.ReactNode {
