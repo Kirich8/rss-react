@@ -1,25 +1,63 @@
 .header {
-  width: 100%;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  padding: 15px;
+  border: 2px solid black;
+  gap: 20px;
 }
 
 .header__title {
   font-family: 'Comic-Script';
   font-size: 50px;
+  line-height: 1.1;
   margin: 0;
-  padding: 10px;
+  padding: 10px 20px 10px 10px;
+  background-color: red;
+  border: 2px solid black;
+  color: white;
+  box-shadow: 0 6px 6px -6px #000;
 }
 
 .header__searchbox {
   display: flex;
+  align-items: center;
   gap: 20px;
 }
 
 .searchbox__search {
-  width: 300px;
+  font-family: 'Might-Makes';
+  width: 80%;
+  height: 40px;
+  border: 2px solid;
+  padding: 5px 5px 10px 10px;
+  font-size: 20px;
+  transition: all 0.3s ease 0s;
+}
+
+.searchbox__search:focus {
+  outline: none;
+  box-shadow: 0 6px 6px -6px #000;
 }
 
 .searchbox__button {
+  font-family: 'Might-Makes';
+  border: solid 2px #000;
+  border-radius: 12px;
+  padding: 5px 10px 11px;
+  background-color: red;
+  color: white;
+  font-size: 20px;
+  box-shadow: 0 6px 6px -6px #000;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+}
+
+.searchbox__button:hover {
+  transform: scale(1.05);
+}
+
+.searchbox__button:active {
+  transform: scale(1.03);
 }
