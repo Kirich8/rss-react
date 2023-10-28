@@ -1,3 +1,4 @@
+import SearchInput from '../search-input/SearchInput';
 import './header.css';
 import React from 'react';
 
@@ -10,18 +11,16 @@ class Header extends React.Component<HeaderProps> {
     searchValue: '',
   };
 
+  handlerSearchInput = (inputValue: string) => {
+    this.setState({ searchValue: inputValue });
+  };
+
   render(): React.ReactNode {
     return (
       <header className="header">
         <h1 className="header__title">Marvel Heroes</h1>
         <div className="header__searchbox searchbox">
-          <input
-            type="search"
-            className="searchbox__search"
-            onChange={(event) =>
-              this.setState({ searchValue: event.currentTarget.value.trim() })
-            }
-          ></input>
+          <SearchInput handlerInput={this.handlerSearchInput} />
           <button
             className="searchbox__button"
             onClick={() => {
