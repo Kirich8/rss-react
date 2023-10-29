@@ -25,39 +25,3 @@
   align-items: center;
   gap: 20px;
 }
-
-.searchbox__search {
-  font-family: 'Might-Makes';
-  width: 80%;
-  height: 40px;
-  border: 2px solid;
-  padding: 5px 5px 10px 10px;
-  font-size: 20px;
-  transition: all 0.3s ease 0s;
-}
-
-.searchbox__search:focus {
-  outline: none;
-  box-shadow: 0 6px 6px -6px #000;
-}
-
-.searchbox__button {
-  font-family: 'Might-Makes';
-  border: solid 2px #000;
-  border-radius: 12px;
-  padding: 5px 10px 11px;
-  background-color: red;
-  color: white;
-  font-size: 20px;
-  box-shadow: 0 6px 6px -6px #000;
-  cursor: pointer;
-  transition: all 0.3s ease 0s;
-}
-
-.searchbox__button:hover {
-  transform: scale(1.05);
-}
-
-.searchbox__button:active {
-  transform: scale(1.03);
-}

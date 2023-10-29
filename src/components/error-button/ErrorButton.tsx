@@ -13,7 +13,12 @@ class ErrorButton extends React.Component {
 
   render(): React.ReactNode {
     return (
-      <button onClick={() => this.setState({ hasError: true })}>Error</button>
+      <button
+        className="button"
+        onClick={() => this.setState({ hasError: true })}
+      >
+        Error
+      </button>
     );
   }
 }

@@ -19,3 +19,24 @@ body {
   flex: 1 1 auto;
   padding-top: 15px;
 }
+
+.button {
+  font-family: 'Might-Makes';
+  border: solid 2px #000;
+  border-radius: 12px;
+  padding: 5px 10px 11px;
+  background-color: red;
+  color: white;
+  font-size: 20px;
+  box-shadow: 0 6px 6px -6px #000;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+}
+
+.button:hover {
+  transform: scale(1.05);
+}
+
+.button:active {
+  transform: scale(1.03);
+}

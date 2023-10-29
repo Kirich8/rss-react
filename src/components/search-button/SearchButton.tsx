@@ -1,4 +1,3 @@
-import './search-button.css';
 import React from 'react';
 
 type SearchButtonProps = {
@@ -10,7 +9,7 @@ class SearchButton extends React.Component<SearchButtonProps> {
   render(): React.ReactNode {
     return (
       <button
-        className="searchbox__button"
+        className="button"
         onClick={() => {
           this.props.handlerButton(this.props.searchValue);
         }}

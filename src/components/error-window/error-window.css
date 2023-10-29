@@ -11,24 +11,3 @@
 .error img {
   width: 200px;
 }
-
-.error__btn {
-  font-family: 'Might-Makes';
-  border: solid 2px #000;
-  border-radius: 12px;
-  padding: 5px 10px 11px;
-  background-color: red;
-  color: white;
-  font-size: 20px;
-  box-shadow: 0 6px 6px -6px #000;
-  cursor: pointer;
-  transition: all 0.3s ease 0s;
-}
-
-.error__btn:hover {
-  transform: scale(1.05);
-}
-
-.error__btn:active {
-  transform: scale(1.03);
-}
