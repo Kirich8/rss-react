@@ -4,6 +4,7 @@ import CardNotFound from '../components/card-not-found/CardNotFound';
 import Loader from '../components/loader/Loader';
 import CardsCatalog from '../components/cards-catalog/CardsCatalog';
 import { apiService } from '../utils/services/ApiServices';
+import ErrorButton from '../components/error-button/ErrorButton';
 
 class App extends React.Component {
   state = {
@@ -29,6 +30,7 @@ class App extends React.Component {
       <>
         <Header changeCurrentCharacter={this.changeCurrentCharacter} />
         <main className="main">
+          <ErrorButton />
           {this.state.isFetching ? (
             <Loader />
           ) : this.state.characters.length ? (

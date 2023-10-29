@@ -12,14 +12,14 @@ class Header extends React.Component<HeaderProps> {
     searchValue: '',
   };
 
-  componentDidMount() {
+  componentDidMount(): void {
     const storedValue = localStorage.getItem('input_value') || '';
 
     this.setState({ searchValue: storedValue });
     this.props.changeCurrentCharacter(storedValue);
   }
 
-  handlerSearchInput = (inputValue: string) => {
+  handlerSearchInput = (inputValue: string): void => {
     this.setState({ searchValue: inputValue });
     localStorage.setItem('input_value', inputValue);
   };
