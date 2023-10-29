@@ -1,0 +1,20 @@
+.loader {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader img {
+  width: 160px;
+  height: 250px;
+}
+
+.loader p {
+  position: relative;
+  top: -50px;
+  left: 10px;
+  font-family: 'Might-Makes';
+  font-size: 25px;
+  margin: 0;
+}

@@ -1,0 +1,15 @@
+@font-face {
+  font-family: 'Might-Makes';
+  src: url('../assets/fonts/Might-Makes.woff') format('woff');
+  src: url('../assets/fonts/Might-Makes.ttf') format('ttf');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Comic-Script';
+  src: url('../assets/fonts/Comic-Script.woff2') format('woff2');
+  src: url('../assets/fonts/Comic-Script.ttf') format('ttf');
+  font-weight: 300;
+  font-style: normal;
+}
