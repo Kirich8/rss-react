@@ -25,13 +25,6 @@ class App extends React.Component {
     });
   };
 
-  async componentDidMount() {
-    this.setState({
-      characters: await apiService.getCharacters(),
-      isFetching: false,
-    });
-  }
-
   render(): React.ReactNode {
     return (
       <>
