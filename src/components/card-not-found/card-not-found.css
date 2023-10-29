@@ -1,11 +1,10 @@
 .not-found {
-  margin-top: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px 25px;
   flex-wrap: wrap;
-  padding: 0 15px;
+  padding: 20px 15px;
 }
 
 .not-found img {

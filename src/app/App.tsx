@@ -1,9 +1,8 @@
-import './App.css';
 import React from 'react';
 import Header from '../components/header/Header';
-import Main from '../pages/main/Main';
 import CardNotFound from '../components/card-not-found/CardNotFound';
 import Loader from '../components/loader/Loader';
+import CardsCatalog from '../components/cards-catalog/CardsCatalog';
 import { apiService } from '../utils/services/ApiServices';
 
 class App extends React.Component {
@@ -29,13 +28,15 @@ class App extends React.Component {
     return (
       <>
         <Header changeCurrentCharacter={this.changeCurrentCharacter} />
-        {this.state.isFetching ? (
-          <Loader />
-        ) : this.state.characters.length ? (
-          <Main characters={this.state.characters} />
-        ) : (
-          <CardNotFound />
-        )}
+        <main className="main">
+          {this.state.isFetching ? (
+            <Loader />
+          ) : this.state.characters.length ? (
+            <CardsCatalog characters={this.state.characters} />
+          ) : (
+            <CardNotFound />
+          )}
+        </main>
       </>
     );
   }

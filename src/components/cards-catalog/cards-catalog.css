@@ -1,10 +1,8 @@
-.main__content {
+.catalog {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: flex-start;
   gap: 30px;
-  border: 2px solid;
-  border-top: 0;
   padding: 25px 15px;
 }
