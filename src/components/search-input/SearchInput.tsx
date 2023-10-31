@@ -6,19 +6,15 @@ type SearchInputProps = {
   handlerInput: (value: string) => void;
 };
 
-class SearchInput extends React.Component<SearchInputProps> {
-  render(): React.ReactNode {
-    return (
-      <input
-        type="search"
-        className="searchbox__search"
-        value={this.props.searchValue}
-        onChange={(event) =>
-          this.props.handlerInput(event.currentTarget.value.trim())
-        }
-      ></input>
-    );
-  }
-}
+const SearchInput = ({ searchValue, handlerInput }: SearchInputProps) => {
+  return (
+    <input
+      type="search"
+      className="searchbox__search"
+      value={searchValue}
+      onChange={(event) => handlerInput(event.currentTarget.value.trim())}
+    ></input>
+  );
+};
 
 export default SearchInput;
