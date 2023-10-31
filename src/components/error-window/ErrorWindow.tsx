@@ -9,7 +9,7 @@ const ErrorWindow = () => {
         Oops... an error has occurred! Please reload the page!
       </p>
       <button className="button" onClick={() => location.reload()}>
-        Realod Page
+        Reload Page
       </button>
     </div>
   );
