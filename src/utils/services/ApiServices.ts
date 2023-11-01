@@ -7,29 +7,29 @@ class ApiService {
     hash: '196c7fb26c971fb7a052fb64ebdd0616',
   };
 
-  public async getCharacters(): Promise<void | ICharacter[]> {
+  public async getCharacters(): Promise<ICharacter[]> {
     try {
       const response = await fetch(
-        `${this.baseLink}?ts=1&apikey=${this.queryParams.apikey}&hash=${this.queryParams.hash}&limit=12`
+        `${this.baseLink}?ts=1&apikey=${this.queryParams.apikey}&hash=${this.queryParams.hash}&limit=24`
       );
       const characters = await response.json();
 
       return characters.data.results;
     } catch (error) {
-      console.error(error);
+      throw new Error();
     }
   }
 
-  public async getCurrentCharacter(name: string): Promise<void | ICharacter[]> {
+  public async getCurrentCharacter(name: string): Promise<ICharacter[]> {
     try {
       const response = await fetch(
-        `${this.baseLink}?ts=1&apikey=${this.queryParams.apikey}&hash=${this.queryParams.hash}&limit=12&nameStartsWith=${name}`
+        `${this.baseLink}?ts=1&apikey=${this.queryParams.apikey}&hash=${this.queryParams.hash}&limit=24&nameStartsWith=${name}`
       );
       const characters = await response.json();
 
       return characters.data.results;
     } catch (error) {
-      console.error(error);
+      throw new Error();
     }
   }
 }

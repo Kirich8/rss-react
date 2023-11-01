@@ -1,18 +1,32 @@
 import './search-input.css';
-import React from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 type SearchInputProps = {
   searchValue: string;
-  handlerInput: (value: string) => void;
+  setSearchValue: React.Dispatch<React.SetStateAction<string>>;
+  setQuery: (searchParams: URLSearchParams, hasPrevParams: boolean) => void;
 };
 
-const SearchInput = ({ searchValue, handlerInput }: SearchInputProps) => {
+const SearchInput = ({
+  searchValue,
+  setSearchValue,
+  setQuery,
+}: SearchInputProps) => {
+  const [searchParams] = useSearchParams();
+
   return (
     <input
-      type="search"
       className="searchbox__search"
       value={searchValue}
-      onChange={(event) => handlerInput(event.currentTarget.value.trim())}
+      onChange={(event) => setSearchValue(event.currentTarget.value)}
+      onKeyUp={(event) => {
+        if (event.code === 'Enter' && searchValue) {
+          searchParams.set('search', searchValue);
+          setQuery(searchParams, searchParams.size !== 0);
+        }
+
+        localStorage.setItem('input_value', searchValue);
+      }}
     ></input>
   );
 };

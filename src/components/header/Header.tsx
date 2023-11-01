@@ -1,46 +1,49 @@
 import './header.css';
-import React from 'react';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import SearchButton from '../search-button/SearchButton';
 import SearchInput from '../search-input/SearchInput';
 
 type HeaderProps = {
-  changeCurrentCharacter: (character: string) => void;
+  setQuery: (searchParams: URLSearchParams, hasPrevParams: boolean) => void;
 };
 
-class Header extends React.Component<HeaderProps> {
-  state = {
-    searchValue: '',
+const Header = ({ setQuery }: HeaderProps) => {
+  const [searchValue, setSearchValue] = useState(
+    localStorage.getItem('input_value') || ''
+  );
+  const [searchParams] = useSearchParams();
+
+  const clearSearchParams = () => {
+    searchParams.delete('search');
+    setQuery(searchParams, searchParams.size !== 0);
   };
 
-  componentDidMount(): void {
-    const storedValue = localStorage.getItem('input_value') || '';
+  useEffect(() => {
+    if (!searchValue) {
+      clearSearchParams();
+    }
 
-    this.setState({ searchValue: storedValue });
-    this.props.changeCurrentCharacter(storedValue);
-  }
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchValue]);
 
-  handlerSearchInput = (inputValue: string): void => {
-    this.setState({ searchValue: inputValue });
-    localStorage.setItem('input_value', inputValue);
-  };
-
-  render(): React.ReactNode {
-    return (
-      <header className="header">
-        <h1 className="header__title">Marvel Heroes</h1>
-        <div className="header__searchbox searchbox">
-          <SearchInput
-            handlerInput={this.handlerSearchInput}
-            searchValue={this.state.searchValue}
-          />
-          <SearchButton
-            handlerButton={this.props.changeCurrentCharacter}
-            searchValue={this.state.searchValue}
-          />
-        </div>
-      </header>
-    );
-  }
-}
+  return (
+    <header className="header">
+      <h1 className="header__title">Marvel Heroes</h1>
+      <div className="header__searchbox searchbox">
+        <SearchInput
+          setQuery={setQuery}
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}
+        />
+        <SearchButton
+          setQuery={setQuery}
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}
+        />
+      </div>
+    </header>
+  );
+};
 
 export default Header;
