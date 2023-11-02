@@ -1,20 +1,20 @@
+import setQuery from '../../utils/helpers/set-query';
 import './search-input.css';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 type SearchInputProps = {
   searchValue: string;
   setSearchValue: React.Dispatch<React.SetStateAction<string>>;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
-  setQuery: (searchParams: URLSearchParams, hasPrevParams: boolean) => void;
 };
 
 const SearchInput = ({
   searchValue,
   setSearchValue,
   setCurrentPage,
-  setQuery,
 }: SearchInputProps) => {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   return (
     <input
@@ -25,7 +25,7 @@ const SearchInput = ({
       onKeyUp={(event) => {
         if (event.code === 'Enter' && searchValue) {
           searchParams.set('search', searchValue);
-          setQuery(searchParams, searchParams.size !== 0);
+          setQuery(navigate, searchParams, searchParams.size !== 0);
           setCurrentPage(1);
         }
 

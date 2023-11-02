@@ -1,25 +1,13 @@
 import Header from '../components/header/Header';
-import {
-  Outlet,
-  createSearchParams,
-  useNavigate,
-  useSearchParams,
-} from 'react-router-dom';
-import CardsCatalog from '../components/cards-catalog/CardsCatalog';
-import { useState } from 'react';
+import { Outlet, useSearchParams } from 'react-router-dom';
 
-const Layout = () => {
-  const [currentPage, setCurrentPage] = useState(1);
+type LayoutProps = {
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+};
+
+const Layout = ({ setCurrentPage }: LayoutProps) => {
   const oldSearchValue = localStorage.getItem('input_value');
   const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
-
-  const setQuery = (searchParams: URLSearchParams, hasPrevParams: boolean) => {
-    navigate(
-      { pathname: '', search: createSearchParams(searchParams).toString() },
-      { replace: hasPrevParams }
-    );
-  };
 
   if (oldSearchValue) {
     searchParams.set('search', oldSearchValue);
@@ -27,13 +15,8 @@ const Layout = () => {
 
   return (
     <div className="wrapper">
-      <Header setQuery={setQuery} setCurrentPage={setCurrentPage} />
+      <Header setCurrentPage={setCurrentPage} />
       <div className="main">
-        <CardsCatalog
-          setQuery={setQuery}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
         <Outlet />
       </div>
       <div className="footer">2023</div>

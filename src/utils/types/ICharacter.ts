@@ -6,4 +6,10 @@ export interface ICharacter {
     path: string;
   };
   description: string;
+  urls: ICharacterUrls[];
+}
+
+interface ICharacterUrls {
+  type: string;
+  url: string;
 }

@@ -1,6 +1,6 @@
 import './pagination.css';
 
-type PaginationPropsType = {
+type PaginationProps = {
   totalPage: number;
   currentPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
@@ -46,7 +46,7 @@ const Pagination = ({
   totalPage,
   currentPage,
   setCurrentPage,
-}: PaginationPropsType) => {
+}: PaginationProps) => {
   return (
     <div className="pagination">
       {[...Array(totalPage)].map((page, index) => {

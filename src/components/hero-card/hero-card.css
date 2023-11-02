@@ -4,6 +4,12 @@
   border: 2px solid;
   overflow: hidden;
   box-shadow: 0 6px 6px -6px #000;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+}
+
+.herocard:hover {
+  transform: scale(1.05);
 }
 
 .herocard__image img {

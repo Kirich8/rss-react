@@ -23,18 +23,31 @@ class ApiService {
     }
   }
 
-  public async getCurrentCharacter(
+  public async getCharactersByName(
     limit: number,
     offset: number,
     name: string
   ): Promise<IResponse> {
     try {
       const response = await fetch(
-        `${this.baseLink}?ts=1&apikey=${this.queryParams.apikey}&hash=${this.queryParams.hash}&limit=${limit}&offset=${offset}&nameStartsWith=${name}&modifiedSince=${this.queryParams.modifiedSince}`
+        `${this.baseLink}?ts=1&apikey=${this.queryParams.apikey}&hash=${this.queryParams.hash}&limit=${limit}&offset=${offset}&nameStartsWith=${name}`
       );
       const characters = await response.json();
 
       return characters.data;
+    } catch (error) {
+      throw new Error();
+    }
+  }
+
+  public async getCharacterById(id: string): Promise<IResponse> {
+    try {
+      const response = await fetch(
+        `${this.baseLink}/${id}?ts=1&apikey=${this.queryParams.apikey}&hash=${this.queryParams.hash}`
+      );
+      const character = await response.json();
+
+      return character.data;
     } catch (error) {
       throw new Error();
     }

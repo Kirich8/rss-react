@@ -1,6 +1,6 @@
 import './cards-count-selector.css';
 
-type CardsCountSelectorPropsType = {
+type CardsCountSelectorProps = {
   limitItems: string;
   setLimitItems: React.Dispatch<React.SetStateAction<string>>;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
@@ -10,7 +10,7 @@ const CardsCountSelector = ({
   limitItems,
   setLimitItems,
   setCurrentPage,
-}: CardsCountSelectorPropsType) => {
+}: CardsCountSelectorProps) => {
   return (
     <div className="selector">
       <label className="selector__label">
