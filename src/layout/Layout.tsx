@@ -6,9 +6,10 @@ import {
   useSearchParams,
 } from 'react-router-dom';
 import CardsCatalog from '../components/cards-catalog/CardsCatalog';
-import ErrorButton from '../components/error-button/ErrorButton';
+import { useState } from 'react';
 
 const Layout = () => {
+  const [currentPage, setCurrentPage] = useState(1);
   const oldSearchValue = localStorage.getItem('input_value');
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -26,15 +27,14 @@ const Layout = () => {
 
   return (
     <div className="wrapper">
-      <Header setQuery={setQuery} />
+      <Header setQuery={setQuery} setCurrentPage={setCurrentPage} />
       <div className="main">
-        <div className="content">
-          <ErrorButton />
-          <CardsCatalog />
-        </div>
-        <div className="details">
-          <Outlet />
-        </div>
+        <CardsCatalog
+          setQuery={setQuery}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
+        <Outlet />
       </div>
       <div className="footer">2023</div>
     </div>

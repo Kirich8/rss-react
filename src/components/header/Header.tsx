@@ -6,9 +6,10 @@ import SearchInput from '../search-input/SearchInput';
 
 type HeaderProps = {
   setQuery: (searchParams: URLSearchParams, hasPrevParams: boolean) => void;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const Header = ({ setQuery }: HeaderProps) => {
+const Header = ({ setQuery, setCurrentPage }: HeaderProps) => {
   const [searchValue, setSearchValue] = useState(
     localStorage.getItem('input_value') || ''
   );
@@ -17,14 +18,13 @@ const Header = ({ setQuery }: HeaderProps) => {
   const clearSearchParams = () => {
     searchParams.delete('search');
     setQuery(searchParams, searchParams.size !== 0);
+    setCurrentPage(1);
   };
 
   useEffect(() => {
     if (!searchValue) {
       clearSearchParams();
     }
-
-    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchValue]);
 
   return (
@@ -35,11 +35,13 @@ const Header = ({ setQuery }: HeaderProps) => {
           setQuery={setQuery}
           searchValue={searchValue}
           setSearchValue={setSearchValue}
+          setCurrentPage={setCurrentPage}
         />
         <SearchButton
           setQuery={setQuery}
           searchValue={searchValue}
           setSearchValue={setSearchValue}
+          setCurrentPage={setCurrentPage}
         />
       </div>
     </header>

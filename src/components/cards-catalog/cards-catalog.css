@@ -1,8 +1,26 @@
 .catalog {
   display: flex;
+  flex-direction: column;
+}
+
+.catalog__items {
+  display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: flex-start;
   gap: 30px;
   padding: 25px 15px;
+}
+
+.catalog__pagination {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.catalog__settings {
+  display: flex;
+  padding: 0 15px;
+  justify-content: space-between;
+  align-items: center;
 }
