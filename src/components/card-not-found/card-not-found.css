@@ -1,0 +1,43 @@
+.not-found {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px 25px;
+  flex-wrap: wrap;
+  padding: 20px 15px;
+}
+
+.not-found img {
+  width: 250px;
+  height: 250px;
+}
+
+.not-found p {
+  font-family: 'Might-Makes';
+  width: 300px;
+  height: 200px;
+  font-size: 25px;
+  transition: all 0.3s ease 0s;
+  margin: 0;
+  position: relative;
+}
+
+.not-found p::after {
+  content: '';
+  background: url('../../assets/images/comic-cloud.webp') center no-repeat;
+  background-size: 300px 200px;
+  position: absolute;
+  left: 0;
+  width: 300px;
+  height: 200px;
+}
+
+.not-found p::before {
+  content: 'nothing found';
+  position: absolute;
+  top: 70px;
+  left: 0;
+  width: 300px;
+  height: 200px;
+  z-index: 1;
+}
