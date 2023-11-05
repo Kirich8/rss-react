@@ -52,7 +52,7 @@ const CardsCatalog = ({
   return (
     <div className="main__catalog catalog">
       <div
-        className={detailsId ? 'catalog__content blur' : 'catalog__content '}
+        className={`catalog__content ${detailsId ? 'blur' : ''}`}
         onClick={() => {
           if (detailsId) {
             searchParams.delete('details');
