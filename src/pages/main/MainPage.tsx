@@ -1,8 +1,8 @@
 import './main-page.css';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Outlet, useNavigate, useSearchParams } from 'react-router-dom';
 import { apiService } from '../../utils/services/ApiServices';
-import { ICharacter } from '../../utils/types/ICharacter';
+import { CharactersContext } from '../../utils/context/CharactersContext';
 import Pagination from '../../components/pagination/Pagination';
 import ErrorButton from '../../components/error-button/ErrorButton';
 import CardsCountSelector from '../../components/cards-count-selector/CardsCountSelector';
@@ -15,7 +15,7 @@ type MainPageProps = {
 };
 
 const MainPage = ({ setCurrentPage, currentPage }: MainPageProps) => {
-  const [characters, setCharacters] = useState<ICharacter[]>([]);
+  const { characters, setCharacters } = useContext(CharactersContext);
   const [totalPage, setTotalPage] = useState(0);
   const [limitItems, setLimitItems] = useState('12');
   const [isLoading, setIsLoading] = useState(false);
@@ -63,16 +63,16 @@ const MainPage = ({ setCurrentPage, currentPage }: MainPageProps) => {
             setCurrentPage={setCurrentPage}
           />
         </div>
-        <CardsCatalog isLoading={isLoading} characters={characters} />
-        <div className="catalog__pagination">
-          {!isLoading && characters.length ? (
+        <CardsCatalog isLoading={isLoading} />
+        {!isLoading && characters.length ? (
+          <div className="catalog__pagination">
             <Pagination
               totalPage={totalPage}
               currentPage={currentPage}
               setCurrentPage={setCurrentPage}
             />
-          ) : null}
-        </div>
+          </div>
+        ) : null}
       </div>
       {detailsId ? <Outlet /> : null}
     </div>

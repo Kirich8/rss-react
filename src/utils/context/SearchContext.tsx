@@ -10,7 +10,7 @@ export const SearchContext = createContext<SearchContextType>({
   setSearchValue: useState,
 });
 
-const Context = (props: PropsWithChildren) => {
+const SearchContextProvider = (props: PropsWithChildren) => {
   const [searchValue, setSearchValue] = useState(
     localStorage.getItem('input_value') || ''
   );
@@ -27,4 +27,4 @@ const Context = (props: PropsWithChildren) => {
   );
 };
 
-export default Context;
+export default SearchContextProvider;

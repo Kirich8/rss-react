@@ -1,15 +1,17 @@
 import './cards-catalog.css';
+import { useContext } from 'react';
+import { CharactersContext } from '../../utils/context/CharactersContext';
 import CardNotFound from '../card-not-found/CardNotFound';
 import HeroCard from '../hero-card/HeroCard';
 import Loader from '../loader/Loader';
-import { ICharacter } from '../../utils/types/ICharacter';
 
 type CardsCatalogProps = {
   isLoading: boolean;
-  characters: ICharacter[];
 };
 
-const CardsCatalog = ({ isLoading, characters }: CardsCatalogProps) => {
+const CardsCatalog = ({ isLoading }: CardsCatalogProps) => {
+  const { characters } = useContext(CharactersContext);
+
   return (
     <div className="catalog__items">
       {isLoading ? (
