@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import Layout from '../layout/Layout';
-import CardsCatalog from '../components/cards-catalog/CardsCatalog';
+import CardsCatalog from '../pages/main/MainPage';
 import { useState } from 'react';
 import Details from '../components/details/Details';
 
