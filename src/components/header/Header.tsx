@@ -1,6 +1,7 @@
 import './header.css';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { SearchContext } from '../../utils/context/SearchContext';
 import SearchButton from '../search-button/SearchButton';
 import SearchInput from '../search-input/SearchInput';
 import setQuery from '../../utils/helpers/set-query';
@@ -10,9 +11,7 @@ type HeaderProps = {
 };
 
 const Header = ({ setCurrentPage }: HeaderProps) => {
-  const [searchValue, setSearchValue] = useState(
-    localStorage.getItem('input_value') || ''
-  );
+  const { searchValue } = useContext(SearchContext);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
@@ -32,16 +31,8 @@ const Header = ({ setCurrentPage }: HeaderProps) => {
     <header className="header">
       <h1 className="header__title">Marvel Heroes</h1>
       <div className="header__searchbox searchbox">
-        <SearchInput
-          searchValue={searchValue}
-          setSearchValue={setSearchValue}
-          setCurrentPage={setCurrentPage}
-        />
-        <SearchButton
-          searchValue={searchValue}
-          setSearchValue={setSearchValue}
-          setCurrentPage={setCurrentPage}
-        />
+        <SearchInput setCurrentPage={setCurrentPage} />
+        <SearchButton setCurrentPage={setCurrentPage} />
       </div>
     </header>
   );
