@@ -65,16 +65,14 @@ const MainPage = ({ setCurrentPage, currentPage }: MainPageProps) => {
         </div>
         <CardsCatalog isLoading={isLoading} />
         {!isLoading && characters.length ? (
-          <div className="catalog__pagination">
-            <Pagination
-              totalPage={totalPage}
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-            />
-          </div>
+          <Pagination
+            totalPage={totalPage}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
         ) : null}
       </div>
-      {detailsId ? <Outlet /> : null}
+      {detailsId && <Outlet />}
     </div>
   );
 };

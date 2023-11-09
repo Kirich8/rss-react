@@ -27,12 +27,6 @@
   margin-top: -15px;
 }
 
-.catalog__pagination {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-}
-
 .catalog__settings {
   display: flex;
   padding: 0 15px;

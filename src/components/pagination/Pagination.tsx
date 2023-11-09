@@ -48,24 +48,26 @@ const Pagination = ({
   setCurrentPage,
 }: PaginationProps) => {
   return (
-    <div className="pagination">
-      {[...Array(totalPage)].map((page, index) => {
-        return isShowButton(index + 1, currentPage, totalPage) ? (
-          <div
-            key={index}
-            className={
-              currentPage === index + 1
-                ? 'button pagination__item active'
-                : 'button pagination__item'
-            }
-            onClick={() => setCurrentPage(index + 1)}
-          >
-            {index + 1}
-          </div>
-        ) : isShowEllipsis(index + 1, currentPage) ? (
-          <p key={index}>...</p>
-        ) : null;
-      })}
+    <div className="catalog__pagination pagination">
+      <div className="pagination__items">
+        {[...Array(totalPage)].map((page, index) => {
+          return isShowButton(index + 1, currentPage, totalPage) ? (
+            <div
+              key={index}
+              className={
+                currentPage === index + 1
+                  ? 'button pagination__item active'
+                  : 'button pagination__item'
+              }
+              onClick={() => setCurrentPage(index + 1)}
+            >
+              {index + 1}
+            </div>
+          ) : isShowEllipsis(index + 1, currentPage) ? (
+            <p key={index}>...</p>
+          ) : null;
+        })}
+      </div>
     </div>
   );
 };
