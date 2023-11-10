@@ -3,6 +3,7 @@ import Layout from '../layout/Layout';
 import CardList from '../pages/main/MainPage';
 import { useState } from 'react';
 import Details from '../components/details/Details';
+import NotFoundPage from '../pages/not-found/NotFoundPage';
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,6 +22,7 @@ const App = () => {
         >
           <Route path="/" element={<Details />} />
         </Route>
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
   );
