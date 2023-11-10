@@ -1,10 +1,11 @@
+import React from 'react';
 import './error-window.css';
-import image from '../../assets/images/oops.png';
+import oopsImage from '../../assets/images/oops.png';
 
-const ErrorWindow = () => {
+const ErrorWindow: React.FC = () => {
   return (
     <div className="error">
-      <img src={image} />
+      <img src={oopsImage} alt="Oops" />
       <p className="error__message">
         Oops... an error has occurred! Please reload the page!
       </p>

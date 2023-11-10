@@ -1,15 +1,15 @@
-import './cards-catalog.css';
+import './card-list.css';
 import { useContext } from 'react';
 import { CharactersContext } from '../../utils/context/CharactersContext';
 import CardNotFound from '../card-not-found/CardNotFound';
 import HeroCard from '../hero-card/HeroCard';
 import Loader from '../loader/Loader';
 
-type CardsCatalogProps = {
+type CardListProps = {
   isLoading: boolean;
 };
 
-const CardsCatalog = ({ isLoading }: CardsCatalogProps) => {
+const CardList = ({ isLoading }: CardListProps) => {
   const { characters } = useContext(CharactersContext);
 
   return (
@@ -27,4 +27,4 @@ const CardsCatalog = ({ isLoading }: CardsCatalogProps) => {
   );
 };
 
-export default CardsCatalog;
+export default CardList;

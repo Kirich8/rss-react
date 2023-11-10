@@ -4,7 +4,8 @@ import image from '../../assets/images/nf.png';
 const CardNotFound = () => {
   return (
     <div className="not-found">
-      <p></p>
+      <div className="cloud"></div>
+      <span>nothing found</span>
       <img src={image} alt="Not found" />
     </div>
   );

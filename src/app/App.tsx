@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import Layout from '../layout/Layout';
-import CardsCatalog from '../pages/main/MainPage';
+import CardList from '../pages/main/MainPage';
 import { useState } from 'react';
 import Details from '../components/details/Details';
 
@@ -13,7 +13,7 @@ const App = () => {
         <Route
           path="/"
           element={
-            <CardsCatalog
+            <CardList
               currentPage={currentPage}
               setCurrentPage={setCurrentPage}
             />

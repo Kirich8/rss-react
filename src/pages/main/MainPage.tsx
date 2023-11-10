@@ -7,7 +7,7 @@ import Pagination from '../../components/pagination/Pagination';
 import ErrorButton from '../../components/error-button/ErrorButton';
 import CardsCountSelector from '../../components/cards-count-selector/CardsCountSelector';
 import setQuery from '../../utils/helpers/set-query';
-import CardsCatalog from '../../components/cards-catalog/CardsCatalog';
+import CardList from '../../components/card-list/CardList';
 
 type MainPageProps = {
   currentPage: number;
@@ -63,7 +63,7 @@ const MainPage = ({ setCurrentPage, currentPage }: MainPageProps) => {
             setCurrentPage={setCurrentPage}
           />
         </div>
-        <CardsCatalog isLoading={isLoading} />
+        <CardList isLoading={isLoading} />
         {!isLoading && characters.length ? (
           <Pagination
             totalPage={totalPage}

@@ -36,6 +36,7 @@ const Details = () => {
             <div className="details__content" key={character.id}>
               <button
                 className="button"
+                data-testid="close-button"
                 onClick={() => {
                   searchParams.delete('details');
                   setQuery(navigate, searchParams, searchParams.size !== 0);
