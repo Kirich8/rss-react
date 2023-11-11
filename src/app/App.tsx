@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import Layout from '../layout/Layout';
-import CardList from '../pages/main/MainPage';
+import MainPage from '../pages/main/MainPage';
 import { useState } from 'react';
 import Details from '../components/details/Details';
 import NotFoundPage from '../pages/not-found/NotFoundPage';
@@ -14,7 +14,7 @@ const App = () => {
         <Route
           path="/"
           element={
-            <CardList
+            <MainPage
               currentPage={currentPage}
               setCurrentPage={setCurrentPage}
             />
@@ -22,8 +22,8 @@ const App = () => {
         >
           <Route path="/" element={<Details />} />
         </Route>
-        <Route path="*" element={<NotFoundPage />} />
       </Route>
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 };

@@ -4,7 +4,7 @@ import './not-found-page.css';
 
 const NotFoundPage = () => {
   return (
-    <div className="not-found">
+    <div className="not-found-page">
       <img src={oopsImage} alt="Oops" />
       <h1>You have found a secret place.</h1>
       <p>

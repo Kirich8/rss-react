@@ -3,7 +3,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import ErrorBoundary from './ErrorBoundary';
 
-describe('Test for the ErrorBoundary component', () => {
+describe('Tests for the ErrorBoundary component', () => {
   const DummyComponent: React.FC = () => <div>Normal Component</div>;
 
   it('Renders children when there is no error', () => {

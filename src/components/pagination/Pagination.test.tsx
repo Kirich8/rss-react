@@ -7,7 +7,7 @@ import Pagination from './Pagination';
 const totalPage = 33;
 
 describe('8. "Tests for the Pagination component"', () => {
-  test('8.1 "Make sure the component updates URL query parameter when page changes"', async () => {
+  it('8.1 "Make sure the component updates URL query parameter when page changes"', async () => {
     const history = createMemoryHistory();
     const setCurrentPageMock = jest.fn();
 
@@ -39,5 +39,28 @@ describe('8. "Tests for the Pagination component"', () => {
         expect(searchParams.get('page')).toBe('2');
       });
     });
+  });
+
+  it('Renders Pagination with ellipsis and correct page numbers', () => {
+    const setCurrentPageMock = jest.fn();
+
+    render(
+      <MemoryRouter>
+        <Pagination
+          totalPage={totalPage}
+          currentPage={30}
+          setCurrentPage={setCurrentPageMock}
+        />
+      </MemoryRouter>
+    );
+    expect(screen.getByText('1')).toBeDefined();
+    expect(screen.getByText('...')).toBeDefined();
+    expect(screen.getByText('28')).toBeDefined();
+    expect(screen.getByText('29')).toBeDefined();
+    expect(screen.getByText('30')).toBeDefined();
+    expect(screen.getByText('31')).toBeDefined();
+    expect(screen.getByText('32')).toBeDefined();
+    expect(screen.getByText('...')).toBeDefined();
+    expect(screen.getByText(`${totalPage}`)).toBeDefined();
   });
 });

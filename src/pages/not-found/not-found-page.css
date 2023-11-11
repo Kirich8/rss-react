@@ -1,4 +1,4 @@
-.not-found {
+.not-found-page {
   display: flex;
   width: 100%;
   flex-direction: column;
@@ -7,17 +7,18 @@
   font-family: 'Might-Makes';
   font-size: 20px;
   padding: 50px;
+  gap: 25px;
 }
 
-.not-found img {
+.not-found-page img {
   width: 250px;
 }
 
-.not-found h1 {
+.not-found-page h1 {
   font-size: 30px;
   margin: 0;
 }
 
-.not-found p {
+.not-found-page p {
   margin: 0;
 }
