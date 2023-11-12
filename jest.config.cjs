@@ -7,4 +7,5 @@ module.exports = {
     '\\.(css|less)$': '<rootDir>/__mocks__/fileMock.js',
   },
   verbose: true,
+  testMatch: ['<rootDir>/src/**/*.test.ts', '<rootDir>/src/**/*.test.tsx'],
 };

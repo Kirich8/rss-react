@@ -8,7 +8,7 @@
     "build": "tsc && vite build --base=./",
     "lint": "eslint --ext .ts,.tsx src",
     "format:fix": "prettier . --write",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "test-coverage": "jest --coverage --collectCoverageFrom='src/**'",
     "preview": "vite preview",
     "prepare": "husky install"
@@ -50,11 +50,12 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npx lint-staged"
+      "pre-commit": "npx lint-staged",
+      "pre-push": "npm run test"
     }
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx}": "npm run lint",
-    "src/**/*.{js,jsx,ts,tsx,css,scss,md}": "prettier --write --ignore-unknown"
+    "src/**/*.{ts,tsx}": "npm run lint",
+    "src/**/*.{ts,tsx,css}": "prettier . --write"
   }
 }
