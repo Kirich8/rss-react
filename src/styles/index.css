@@ -1,0 +1,55 @@
+body {
+  margin: 0 auto;
+}
+
+a {
+  text-decoration: none;
+}
+
+.wrapper {
+  box-sizing: border-box;
+  max-width: 1440px;
+  min-height: 100vh;
+  padding: 5px;
+  text-align: center;
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+.main {
+  border: 2px solid;
+  border-top: 0;
+  flex: 1 1 auto;
+  display: flex;
+}
+
+.button {
+  font-family: 'Might-Makes';
+  border: solid 2px #000;
+  border-radius: 12px;
+  padding: 5px 10px 11px;
+  background-color: red;
+  color: white;
+  font-size: 20px;
+  box-shadow: 0 6px 6px -6px #000;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+}
+
+.button:hover {
+  transform: scale(1.05);
+}
+
+.button:active {
+  transform: scale(1.03);
+}
+
+.footer {
+  font-family: 'Might-Makes';
+  border: 2px solid;
+  border-top: 0;
+  padding: 15px;
+  font-size: 20px;
+}
