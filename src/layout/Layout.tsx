@@ -9,7 +9,7 @@ const Layout = ({ setCurrentPage }: LayoutProps) => {
   return (
     <div className="wrapper">
       <Header setCurrentPage={setCurrentPage} />
-      <div className="main" data-test="test husky">
+      <div className="main">
         <Outlet />
       </div>
       <div className="footer">2023</div>
