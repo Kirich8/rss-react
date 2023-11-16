@@ -1,32 +1,24 @@
 import './search-input.css';
-import { useContext } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { SearchContext } from '../../utils/context/SearchContext';
-import setQuery from '../../utils/helpers/set-query';
 
 type SearchInputProps = {
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  inputValue: string;
+  setInputValue: React.Dispatch<React.SetStateAction<string>>;
+  enterButtonHandler: () => void;
 };
 
-const SearchInput = ({ setCurrentPage }: SearchInputProps) => {
-  const { searchValue, setSearchValue } = useContext(SearchContext);
-  const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
-
+const SearchInput = ({
+  inputValue,
+  setInputValue,
+  enterButtonHandler,
+}: SearchInputProps) => {
   return (
     <input
       className="searchbox__search"
-      value={searchValue}
+      value={inputValue}
       placeholder="name starts with"
-      onChange={(event) => setSearchValue(event.currentTarget.value)}
+      onChange={(event) => setInputValue(event.currentTarget.value)}
       onKeyUp={(event) => {
-        if (event.code === 'Enter' && searchValue) {
-          searchParams.set('search', searchValue);
-          setQuery(navigate, searchParams, searchParams.size !== 0);
-          setCurrentPage(1);
-        }
-
-        localStorage.setItem('input_value', searchValue);
+        if (event.code === 'Enter') enterButtonHandler();
       }}
     ></input>
   );

@@ -1,14 +1,10 @@
 import Header from '../components/header/Header';
 import { Outlet } from 'react-router-dom';
 
-type LayoutProps = {
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
-};
-
-const Layout = ({ setCurrentPage }: LayoutProps) => {
+const Layout = () => {
   return (
     <div className="wrapper">
-      <Header setCurrentPage={setCurrentPage} />
+      <Header />
       <div className="main">
         <Outlet />
       </div>

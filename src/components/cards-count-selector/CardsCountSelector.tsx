@@ -1,16 +1,19 @@
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import './cards-count-selector.css';
+import setQuery from '../../utils/helpers/set-query';
 
 type CardsCountSelectorProps = {
   limitItems: string;
   setLimitItems: React.Dispatch<React.SetStateAction<string>>;
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
 const CardsCountSelector = ({
   limitItems,
   setLimitItems,
-  setCurrentPage,
 }: CardsCountSelectorProps) => {
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+
   return (
     <div className="selector">
       <label className="selector__label">
@@ -20,7 +23,8 @@ const CardsCountSelector = ({
           value={limitItems}
           onChange={(event) => {
             setLimitItems(event.target.value);
-            setCurrentPage(1);
+            searchParams.set('page', '1');
+            setQuery(navigate, searchParams, searchParams.size !== 0);
           }}
         >
           <option value="12">12</option>

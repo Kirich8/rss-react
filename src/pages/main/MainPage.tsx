@@ -3,42 +3,39 @@ import { useContext, useEffect, useState } from 'react';
 import { Outlet, useNavigate, useSearchParams } from 'react-router-dom';
 import { apiService } from '../../utils/services/ApiServices';
 import { CharactersContext } from '../../utils/context/CharactersContext';
+import { useSelector } from 'react-redux';
+import { AppState } from '../../store';
 import Pagination from '../../components/pagination/Pagination';
 import ErrorButton from '../../components/error-button/ErrorButton';
 import CardsCountSelector from '../../components/cards-count-selector/CardsCountSelector';
 import setQuery from '../../utils/helpers/set-query';
 import CardList from '../../components/card-list/CardList';
 
-type MainPageProps = {
-  currentPage: number;
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
-};
-
-const MainPage = ({ setCurrentPage, currentPage }: MainPageProps) => {
+const MainPage = () => {
   const { characters, setCharacters } = useContext(CharactersContext);
   const [totalPage, setTotalPage] = useState(0);
   const [limitItems, setLimitItems] = useState('12');
   const [isLoading, setIsLoading] = useState(false);
   const [searchParams] = useSearchParams();
-  const searchValue = searchParams.get('search');
+  const searchValue = useSelector(
+    (state: AppState) => state.search.searchValue
+  );
   const detailsId = searchParams.get('details');
+  const currentPage = searchParams.get('page') || '1';
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
 
-      const offset = +limitItems * (currentPage - 1);
+      const offset = +limitItems * (+currentPage - 1);
       const characters = searchValue
         ? await apiService.getCharactersByName(+limitItems, offset, searchValue)
         : await apiService.getCharacters(+limitItems, offset);
 
-      searchParams.set('page', currentPage.toString());
-
       setCharacters(characters.results);
       setTotalPage(Math.ceil(characters.total / characters.limit));
       setIsLoading(false);
-      setQuery(navigate, searchParams, searchParams.size !== 0);
     };
 
     fetchData();
@@ -60,16 +57,11 @@ const MainPage = ({ setCurrentPage, currentPage }: MainPageProps) => {
           <CardsCountSelector
             limitItems={limitItems}
             setLimitItems={setLimitItems}
-            setCurrentPage={setCurrentPage}
           />
         </div>
         <CardList isLoading={isLoading} />
         {!isLoading && characters.length ? (
-          <Pagination
-            totalPage={totalPage}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-          />
+          <Pagination totalPage={totalPage} />
         ) : null}
       </div>
       {detailsId && <Outlet />}

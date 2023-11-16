@@ -1,38 +1,45 @@
 import './header.css';
-import { useContext, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { SearchContext } from '../../utils/context/SearchContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppState } from '../../store';
+import { changeSearchValue } from '../../store/searchSlice';
 import SearchButton from '../search-button/SearchButton';
 import SearchInput from '../search-input/SearchInput';
 import setQuery from '../../utils/helpers/set-query';
 
-type HeaderProps = {
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
-};
+const Header = () => {
+  const searchValue = useSelector(
+    (state: AppState) => state.search.searchValue
+  );
 
-const Header = ({ setCurrentPage }: HeaderProps) => {
-  const { searchValue } = useContext(SearchContext);
+  const [inputValue, setInputValue] = useState(searchValue);
   const [searchParams] = useSearchParams();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const clearSearchParams = () => {
-    searchParams.delete('search');
-    setQuery(navigate, searchParams, searchParams.size !== 0);
-    setCurrentPage(1);
-  };
+  const updateState = () => {
+    dispatch(changeSearchValue(inputValue));
 
-  useEffect(() => {
-    if (!searchValue) {
-      clearSearchParams();
-    }
-  }, [searchValue]);
+    searchParams.set('page', '1');
+
+    inputValue
+      ? searchParams.set('search', inputValue)
+      : searchParams.delete('search');
+
+    setQuery(navigate, searchParams, searchParams.size !== 0);
+  };
 
   return (
     <header className="header">
       <h1 className="header__title">Marvel Heroes</h1>
       <div className="header__searchbox searchbox">
-        <SearchInput setCurrentPage={setCurrentPage} />
-        <SearchButton setCurrentPage={setCurrentPage} />
+        <SearchInput
+          inputValue={inputValue}
+          setInputValue={setInputValue}
+          enterButtonHandler={updateState}
+        />
+        <SearchButton clickButtonHandler={updateState} />
       </div>
     </header>
   );
