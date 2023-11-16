@@ -41,7 +41,9 @@ describe('6. "Tests for the Card component"', () => {
 
     fireEvent.click(screen.getByAltText('Hero'));
 
-    expect(screen.getByText(/Spider-Man/i)).toBeDefined();
+    waitFor(() => {
+      expect(screen.getByText(mockCharacters[0].description)).toBeDefined();
+    });
   });
 
   test('6.3 "Check that clicking triggers an additional API call to fetch detailed information"', async () => {
