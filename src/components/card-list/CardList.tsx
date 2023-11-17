@@ -2,8 +2,10 @@ import './card-list.css';
 import { charactersApi } from '../../utils/services/charactersApi';
 import { ICharacter } from '../../utils/types/ICharacter';
 import { useSearchParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../store';
+import { changeLoadingFlagsMain } from '../../store/loadingFlagsSlice';
+import { useEffect } from 'react';
 import Pagination from '../pagination/Pagination';
 import CardNotFound from '../card-not-found/CardNotFound';
 import HeroCard from '../hero-card/HeroCard';
@@ -11,6 +13,7 @@ import Loader from '../loader/Loader';
 
 const CardList = () => {
   const [searchParams] = useSearchParams();
+  const dispatch = useDispatch();
   const currentPage = searchParams.get('page') || '1';
 
   const limitItems = useSelector(
@@ -22,7 +25,7 @@ const CardList = () => {
 
   const offset = limitItems * (+currentPage - 1);
 
-  const { data, isFetching } = searchValue
+  const { data, isFetching, isLoading, isSuccess } = searchValue
     ? charactersApi.useGetCharactersByNameQuery({
         limit: limitItems,
         offset,
@@ -35,6 +38,14 @@ const CardList = () => {
 
   const totalItems = data?.total as number;
   const totalPage = Math.ceil(totalItems / limitItems);
+
+  const changeLoadingFlags = () => {
+    dispatch(changeLoadingFlagsMain({ isLoading, isFetching, isSuccess }));
+  };
+
+  useEffect(() => {
+    changeLoadingFlags();
+  }, [isLoading, isFetching, isSuccess]);
 
   return (
     <>
