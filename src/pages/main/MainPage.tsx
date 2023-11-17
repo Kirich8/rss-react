@@ -1,5 +1,4 @@
 import './main-page.css';
-import { useState } from 'react';
 import { Outlet, useNavigate, useSearchParams } from 'react-router-dom';
 import ErrorButton from '../../components/error-button/ErrorButton';
 import CardsCountSelector from '../../components/cards-count-selector/CardsCountSelector';
@@ -7,7 +6,6 @@ import setQuery from '../../utils/helpers/set-query';
 import CardList from '../../components/card-list/CardList';
 
 const MainPage = () => {
-  const [limitItems, setLimitItems] = useState('12');
   const [searchParams] = useSearchParams();
   const detailsId = searchParams.get('details');
   const navigate = useNavigate();
@@ -25,12 +23,9 @@ const MainPage = () => {
       >
         <div className="catalog__settings">
           <ErrorButton />
-          <CardsCountSelector
-            limitItems={limitItems}
-            setLimitItems={setLimitItems}
-          />
+          <CardsCountSelector />
         </div>
-        <CardList limitItems={limitItems} />
+        <CardList />
       </div>
       {detailsId && <Outlet />}
     </div>

@@ -9,31 +9,32 @@ import CardNotFound from '../card-not-found/CardNotFound';
 import HeroCard from '../hero-card/HeroCard';
 import Loader from '../loader/Loader';
 
-type CardListProps = {
-  limitItems: string;
-};
-
-const CardList = ({ limitItems }: CardListProps) => {
+const CardList = () => {
   const [searchParams] = useSearchParams();
   const currentPage = searchParams.get('page') || '1';
-  const offset = +limitItems * (+currentPage - 1);
+
+  const limitItems = useSelector(
+    (state: AppState) => state.itemsPerPage.itemsPerPageCount
+  );
   const searchValue = useSelector(
     (state: AppState) => state.search.searchValue
   );
 
+  const offset = limitItems * (+currentPage - 1);
+
   const { data, isFetching } = searchValue
     ? charactersApi.useGetCharactersByNameQuery({
-        limit: +limitItems,
+        limit: limitItems,
         offset,
         name: searchValue,
       })
     : charactersApi.useGetCharactersQuery({
-        limit: +limitItems,
+        limit: limitItems,
         offset,
       });
 
   const totalItems = data?.total as number;
-  const totalPage = Math.ceil(totalItems / +limitItems);
+  const totalPage = Math.ceil(totalItems / limitItems);
 
   return (
     <>

@@ -1,18 +1,31 @@
-import { useNavigate, useSearchParams } from 'react-router-dom';
 import './cards-count-selector.css';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppState } from '../../store';
+import { useEffect, useState } from 'react';
+import { changeItemsPerPageCount } from '../../store/itemsPerPageSlice';
 import setQuery from '../../utils/helpers/set-query';
 
-type CardsCountSelectorProps = {
-  limitItems: string;
-  setLimitItems: React.Dispatch<React.SetStateAction<string>>;
-};
+const CardsCountSelector = () => {
+  const limitItems = useSelector(
+    (state: AppState) => state.itemsPerPage.itemsPerPageCount
+  );
 
-const CardsCountSelector = ({
-  limitItems,
-  setLimitItems,
-}: CardsCountSelectorProps) => {
+  const [selectValue, setSelectValue] = useState(limitItems);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const changeSelectHandler = () => {
+    dispatch(changeItemsPerPageCount(selectValue));
+
+    searchParams.set('page', '1');
+    setQuery(navigate, searchParams, searchParams.size !== 0);
+  };
+
+  useEffect(() => {
+    changeSelectHandler();
+  }, [selectValue]);
 
   return (
     <div className="selector">
@@ -20,12 +33,8 @@ const CardsCountSelector = ({
         Cards per page:
         <select
           className="selector__select"
-          value={limitItems}
-          onChange={(event) => {
-            setLimitItems(event.target.value);
-            searchParams.set('page', '1');
-            setQuery(navigate, searchParams, searchParams.size !== 0);
-          }}
+          value={selectValue}
+          onChange={(event) => setSelectValue(+event.target.value)}
         >
           <option value="12">12</option>
           <option value="24">24</option>
