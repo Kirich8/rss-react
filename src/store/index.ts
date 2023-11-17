@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
-import searchSlice from './searchSlice';
+import { ICharacter } from '../utils/types/ICharacter';
 import { charactersApi } from '../utils/services/charactersApi';
+import searchSlice from './searchSlice';
 import itemsPerPageSlice from './itemsPerPageSlice';
 import loadingFlagsSlice from './loadingFlagsSlice';
 
@@ -11,6 +12,7 @@ export interface AppState {
 
   itemsPerPage: {
     itemsPerPageCount: number;
+    itemsPerPage: ICharacter[];
   };
 
   loadingFlags: {

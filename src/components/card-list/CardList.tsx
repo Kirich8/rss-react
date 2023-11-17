@@ -10,6 +10,7 @@ import Pagination from '../pagination/Pagination';
 import CardNotFound from '../card-not-found/CardNotFound';
 import HeroCard from '../hero-card/HeroCard';
 import Loader from '../loader/Loader';
+import { changeItemsPerPage } from '../../store/itemsPerPageSlice';
 
 const CardList = () => {
   const [searchParams] = useSearchParams();
@@ -41,11 +42,12 @@ const CardList = () => {
 
   const changeLoadingFlags = () => {
     dispatch(changeLoadingFlagsMain({ isLoading, isFetching, isSuccess }));
+    dispatch(changeItemsPerPage({ itemsPerPage: data?.results }));
   };
 
   useEffect(() => {
     changeLoadingFlags();
-  }, [isLoading, isFetching, isSuccess]);
+  }, [isLoading, isFetching, isSuccess, limitItems]);
 
   return (
     <>

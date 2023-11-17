@@ -17,7 +17,7 @@ const CardsCountSelector = () => {
   const dispatch = useDispatch();
 
   const changeSelectHandler = () => {
-    dispatch(changeItemsPerPageCount(selectValue));
+    dispatch(changeItemsPerPageCount({ itemsPerPageCount: selectValue }));
 
     searchParams.set('page', '1');
     setQuery(navigate, searchParams, searchParams.size !== 0);
