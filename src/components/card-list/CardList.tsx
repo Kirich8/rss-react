@@ -1,29 +1,55 @@
 import './card-list.css';
-import { useContext } from 'react';
-import { CharactersContext } from '../../utils/context/CharactersContext';
+import { charactersApi } from '../../utils/services/charactersApi';
+import { ICharacter } from '../../utils/types/ICharacter';
+import { useSearchParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { AppState } from '../../store';
+import Pagination from '../pagination/Pagination';
 import CardNotFound from '../card-not-found/CardNotFound';
 import HeroCard from '../hero-card/HeroCard';
 import Loader from '../loader/Loader';
 
 type CardListProps = {
-  isLoading: boolean;
+  limitItems: string;
 };
 
-const CardList = ({ isLoading }: CardListProps) => {
-  const { characters } = useContext(CharactersContext);
+const CardList = ({ limitItems }: CardListProps) => {
+  const [searchParams] = useSearchParams();
+  const currentPage = searchParams.get('page') || '1';
+  const offset = +limitItems * (+currentPage - 1);
+  const searchValue = useSelector(
+    (state: AppState) => state.search.searchValue
+  );
+
+  const { data, isFetching } = searchValue
+    ? charactersApi.useGetCharactersByNameQuery({
+        limit: +limitItems,
+        offset,
+        name: searchValue,
+      })
+    : charactersApi.useGetCharactersQuery({
+        limit: +limitItems,
+        offset,
+      });
+
+  const totalItems = data?.total as number;
+  const totalPage = Math.ceil(totalItems / +limitItems);
 
   return (
-    <div className="catalog__items">
-      {isLoading ? (
-        <Loader />
-      ) : characters.length ? (
-        characters.map((character) => {
-          return <HeroCard key={character.id} character={character} />;
-        })
-      ) : (
-        <CardNotFound />
-      )}
-    </div>
+    <>
+      <div className="catalog__items">
+        {isFetching ? (
+          <Loader />
+        ) : data?.total ? (
+          data?.results.map((character: ICharacter) => {
+            return <HeroCard key={character.id} character={character} />;
+          })
+        ) : (
+          <CardNotFound />
+        )}
+      </div>
+      {!isFetching && <Pagination totalPage={totalPage} />}
+    </>
   );
 };
 

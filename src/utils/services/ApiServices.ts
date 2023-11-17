@@ -17,7 +17,10 @@ class ApiService {
       );
       const characters = await response.json();
 
-      return characters.data;
+      return {
+        total: characters.data.total,
+        results: characters.data.results,
+      };
     } catch (error) {
       throw new Error();
     }
@@ -34,7 +37,10 @@ class ApiService {
       );
       const characters = await response.json();
 
-      return characters.data;
+      return {
+        total: characters.data.total,
+        results: characters.data.results,
+      };
     } catch (error) {
       throw new Error();
     }
@@ -45,9 +51,12 @@ class ApiService {
       const response = await fetch(
         `${this.baseLink}/${id}?ts=1&apikey=${this.queryParams.apikey}&hash=${this.queryParams.hash}`
       );
-      const character = await response.json();
+      const characters = await response.json();
 
-      return character.data;
+      return {
+        total: characters.data.total,
+        results: characters.data.results,
+      };
     } catch (error) {
       throw new Error();
     }
