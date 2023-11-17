@@ -42,8 +42,22 @@ export const charactersApi = createApi({
         };
       },
     }),
+    getCharacterById: build.query<IResponse, { id: string }>({
+      queryFn: async (args) => {
+        const response = await apiService.getCharacterById(args.id);
+        return {
+          data: {
+            total: response.total,
+            results: response.results,
+          },
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetCharactersQuery, useGetCharactersByNameQuery } =
-  charactersApi;
+export const {
+  useGetCharactersQuery,
+  useGetCharactersByNameQuery,
+  useGetCharacterByIdQuery,
+} = charactersApi;

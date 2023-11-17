@@ -1,37 +1,24 @@
 import './details.css';
-import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { apiService } from '../../utils/services/ApiServices';
-import { ICharacter } from '../../utils/types/ICharacter';
+import { charactersApi } from '../../utils/services/charactersApi';
 import Loader from '../loader/Loader';
 import setQuery from '../../utils/helpers/set-query';
 
 const Details = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
-  const [character, setCharacter] = useState<ICharacter[]>([]);
-  const detailsId = searchParams.get('details');
+  const detailsId = searchParams.get('details') as string;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-
-      const character = await apiService.getCharacterById(detailsId || '');
-
-      setCharacter(character.results);
-      setIsLoading(false);
-    };
-
-    fetchData();
-  }, [detailsId]);
+  const { data, isFetching } = charactersApi.useGetCharacterByIdQuery({
+    id: detailsId,
+  });
 
   return (
     <div className="details">
-      {isLoading ? (
+      {isFetching ? (
         <Loader />
       ) : (
-        character.map((character) => {
+        data?.results.map((character) => {
           return (
             <div className="details__content" key={character.id}>
               <button
@@ -58,13 +45,15 @@ const Details = () => {
               </div>
               <div>
                 {character.urls.map((url) => {
-                  return url.type === 'comiclink' ? (
-                    <div key={url.url}>
-                      <a className="button" href={url.url} target="blank">
-                        Comics with a hero
-                      </a>
-                    </div>
-                  ) : null;
+                  return (
+                    url.type === 'comiclink' && (
+                      <div key={url.url}>
+                        <a className="button" href={url.url} target="blank">
+                          Comics with a hero
+                        </a>
+                      </div>
+                    )
+                  );
                 })}
               </div>
             </div>
