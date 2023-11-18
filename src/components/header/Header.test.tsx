@@ -1,18 +1,18 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import SearchContextProvider from '../../utils/context/SearchContext';
 import Header from './Header';
+import { Provider } from 'react-redux';
+import { store } from '../../store';
 
 describe('9. "Tests for the Search component"', () => {
   it('9.1 "Verify that clicking the Search button saves the entered value to the local storage"', () => {
     const mockSearchValue = 'Spider-Man';
-    const setCurrentPageMock = jest.fn();
 
     render(
       <BrowserRouter>
-        <SearchContextProvider>
-          <Header setCurrentPage={setCurrentPageMock} />
-        </SearchContextProvider>
+        <Provider store={store}>
+          <Header />
+        </Provider>
       </BrowserRouter>
     );
 
@@ -31,13 +31,11 @@ describe('9. "Tests for the Search component"', () => {
 
     localStorage.setItem('input_value', mockSearchValue);
 
-    const setCurrentPageMock = jest.fn();
-
     render(
       <BrowserRouter>
-        <SearchContextProvider>
-          <Header setCurrentPage={setCurrentPageMock} />
-        </SearchContextProvider>
+        <Provider store={store}>
+          <Header />
+        </Provider>
       </BrowserRouter>
     );
 

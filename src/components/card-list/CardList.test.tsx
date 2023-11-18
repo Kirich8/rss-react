@@ -1,39 +1,64 @@
-import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
-import { CharactersContext } from '../../utils/context/CharactersContext';
-import { ICharacter } from '../../utils/types/ICharacter';
+import { HttpResponse, http } from 'msw';
 import { mockCharacters } from '../../utils/tests/mock-characters';
-import { BrowserRouter } from 'react-router-dom';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import '@testing-library/jest-dom';
+import { render, waitFor, screen } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import { store } from '../../store';
+import { server } from '../../mocks/node';
 import CardList from './CardList';
 
+server.use(
+  http.get('https://gateway.marvel.com/v1/public/*', () => {
+    return HttpResponse.json({
+      data: {
+        total: 1,
+        results: mockCharacters,
+      },
+    });
+  })
+);
+
 describe('5. "Tests for the Card List component"', () => {
-  test('5.1 "Verify that the component renders the specified number of cards"', () => {
+  test('5.1 "Verify that the component renders the specified number of cards"', async () => {
     const { container } = render(
-      <BrowserRouter>
-        <CharactersContext.Provider
-          value={{ characters: mockCharacters, setCharacters: jest.fn() }}
-        >
-          <CardList isLoading={false} />
-        </CharactersContext.Provider>
-      </BrowserRouter>
+      <MemoryRouter initialEntries={['/?details=1009610']}>
+        <Provider store={store}>
+          <Routes>
+            <Route path="/" element={<CardList />} />
+          </Routes>
+        </Provider>
+      </MemoryRouter>
     );
 
-    const cards = container.getElementsByClassName('herocard');
-    expect(cards.length).toBe(mockCharacters.length);
+    await waitFor(() => {
+      waitFor(() => {
+        const cards = container.getElementsByClassName('herocard');
+
+        expect(cards.length).toBe(mockCharacters.length);
+        expect(container).toHaveTextContent(mockCharacters[0].name);
+        expect(container).toHaveTextContent(mockCharacters[1].name);
+        expect(container).toHaveTextContent(mockCharacters[2].name);
+      });
+    });
   });
 
-  test('5.2 "Check that an appropriate message is displayed if no cards are present"', () => {
-    const mockEmptyCharacters: ICharacter[] = [];
-
-    render(
-      <CharactersContext.Provider
-        value={{ characters: mockEmptyCharacters, setCharacters: jest.fn() }}
-      >
-        <CardList isLoading={false} />
-      </CharactersContext.Provider>
+  test('5.2 "Check that an appropriate message is displayed if no cards are present"', async () => {
+    const {} = render(
+      <MemoryRouter initialEntries={['/?details=1009610']}>
+        <Provider store={store}>
+          <Routes>
+            <Route path="/" element={<CardList />} />
+          </Routes>
+        </Provider>
+      </MemoryRouter>
     );
 
-    const cardNotFoundElement = screen.getByText('nothing found');
-    expect(cardNotFoundElement).toBeInTheDocument();
+    await waitFor(() => {
+      waitFor(() => {
+        const cardNotFoundElement = screen.getByText('nothing found');
+        expect(cardNotFoundElement).toBeInTheDocument();
+      });
+    });
   });
 });

@@ -1,47 +1,51 @@
 import '@testing-library/jest-dom';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
+import * as reduxHooks from 'react-redux';
 import CardsCountSelector from './CardsCountSelector';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
+
+jest.mock('react-redux');
+
+const mockInitialState = {
+  search: { searchValue: '' },
+  itemsPerPage: {
+    itemsPerPage: 12,
+    itemsPerPageCount: [],
+  },
+  loadingFlags: {
+    main: {
+      isFetching: false,
+      isLoading: false,
+      isSuccess: false,
+    },
+    details: {
+      isFetching: false,
+      isLoading: false,
+      isSuccess: false,
+    },
+  },
+};
+
+const setLimitItemsMock = jest.fn();
+const mockedDispatch = jest.spyOn(reduxHooks, 'useDispatch');
+const mockedSelector = jest.spyOn(reduxHooks, 'useSelector');
 
 describe('Tests for the CardsCountSelector component', () => {
-  it('Renders CardsCountSelector with default values', () => {
-    const limitItems = '12';
-    const setLimitItemsMock = jest.fn();
-    const setCurrentPageMock = jest.fn();
+  it('Calls setLimitItemsMock twice when the selector value changes', () => {
+    mockedSelector.mockReturnValue(mockInitialState);
+    mockedDispatch.mockReturnValue(setLimitItemsMock);
 
     render(
-      <CardsCountSelector
-        limitItems={limitItems}
-        setLimitItems={setLimitItemsMock}
-        setCurrentPage={setCurrentPageMock}
-      />
-    );
-
-    const selectorLabel = screen.getByText(/Cards per page/i);
-    const selectorSelect = screen.getByRole('combobox');
-
-    expect(selectorLabel).toBeInTheDocument();
-    expect(selectorSelect).toBeInTheDocument();
-    expect(selectorSelect).toHaveValue('12');
-  });
-
-  it('Handles change event correctly', () => {
-    const limitItems = '12';
-    const setLimitItemsMock = jest.fn();
-    const setCurrentPageMock = jest.fn();
-
-    render(
-      <CardsCountSelector
-        limitItems={limitItems}
-        setLimitItems={setLimitItemsMock}
-        setCurrentPage={setCurrentPageMock}
-      />
+      <MemoryRouter initialEntries={['/']}>
+        <Routes>
+          <Route path="/" element={<CardsCountSelector />} />
+        </Routes>
+      </MemoryRouter>
     );
 
     const selectorSelect = screen.getByRole('combobox');
 
     fireEvent.change(selectorSelect, { target: { value: '24' } });
-
-    expect(setLimitItemsMock).toHaveBeenCalledWith('24');
-    expect(setCurrentPageMock).toHaveBeenCalledWith(1);
+    expect(setLimitItemsMock).toHaveBeenCalledTimes(2);
   });
 });

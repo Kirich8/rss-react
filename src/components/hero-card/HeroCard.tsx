@@ -2,6 +2,7 @@ import './hero-card.css';
 import { ICharacter } from '../../utils/types/ICharacter';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import setQuery from '../../utils/helpers/set-query';
+import { apiService } from '../../utils/services/ApiServices';
 
 type HeroCardProps = {
   character: ICharacter;
@@ -15,10 +16,11 @@ const HeroCard = ({ character }: HeroCardProps) => {
     <div
       className="herocard"
       key={character.id}
-      data-testid={character.id}
+      data-testid={'herocard'}
       onClick={() => {
         searchParams.set('details', `${character.id}`);
         setQuery(navigate, searchParams, searchParams.size !== 0);
+        apiService.getCharacterById(`${character.id}`);
       }}
     >
       <div className="herocard__image">

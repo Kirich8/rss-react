@@ -1,3 +1,4 @@
+import '@testing-library/jest-dom';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { apiService } from '../../utils/services/ApiServices';
@@ -53,7 +54,7 @@ describe('6. "Tests for the Card component"', () => {
       </MemoryRouter>
     );
 
-    fireEvent.click(screen.getByTestId(mockCharacters[0].id));
+    fireEvent.click(screen.getAllByTestId('herocard')[0]);
 
     await waitFor(() => {
       expect(apiService.getCharacterById).toHaveBeenCalledWith(

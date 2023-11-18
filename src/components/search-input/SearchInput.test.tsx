@@ -1,27 +1,42 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import SearchInput from './SearchInput';
-import { MemoryRouter } from 'react-router-dom';
-import SearchContextProvider from '../../utils/context/SearchContext';
 
-describe('Tests for the SearchInput component', () => {
-  it('Calls setCurrentPage and updates URL on Enter key press with a non-empty searchValue', () => {
-    const setCurrentPageMock = jest.fn();
+describe('SearchInput Component', () => {
+  test('renders SearchInput component', () => {
+    const mockSetInputValue = jest.fn();
+    const mockEnterButtonHandler = jest.fn();
 
-    render(
-      <MemoryRouter>
-        <SearchContextProvider>
-          <SearchInput setCurrentPage={setCurrentPageMock} />
-        </SearchContextProvider>
-      </MemoryRouter>
+    const { getByPlaceholderText } = render(
+      <SearchInput
+        inputValue=""
+        setInputValue={mockSetInputValue}
+        enterButtonHandler={mockEnterButtonHandler}
+      />
     );
 
-    const inputElement = screen.getByPlaceholderText('name starts with');
+    const inputElement = getByPlaceholderText('name starts with');
+    fireEvent.change(inputElement, { target: { value: 'Test' } });
 
-    fireEvent.change(inputElement, { target: { value: 'testValue' } });
-    fireEvent.keyUp(inputElement, { code: 'Enter' });
+    expect(mockSetInputValue).toHaveBeenCalledTimes(1);
+    expect(mockEnterButtonHandler).not.toHaveBeenCalled();
+  });
 
-    expect(setCurrentPageMock).toHaveBeenCalledWith(1);
+  test('calls enterButtonHandler on pressing Enter key', () => {
+    const mockSetInputValue = jest.fn();
+    const mockEnterButtonHandler = jest.fn();
 
-    expect(localStorage.getItem('input_value')).toBe('testValue');
+    const { getByPlaceholderText } = render(
+      <SearchInput
+        inputValue=""
+        setInputValue={mockSetInputValue}
+        enterButtonHandler={mockEnterButtonHandler}
+      />
+    );
+
+    const inputElement = getByPlaceholderText('name starts with');
+    fireEvent.keyUp(inputElement, { key: 'Enter', code: 'Enter' });
+
+    expect(mockEnterButtonHandler).toHaveBeenCalledTimes(1);
+    expect(mockSetInputValue).not.toHaveBeenCalled();
   });
 });

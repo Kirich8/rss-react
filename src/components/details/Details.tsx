@@ -1,6 +1,6 @@
 import './details.css';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { charactersApi } from '../../utils/services/charactersApi';
+import { useGetCharacterByIdQuery } from '../../utils/services/charactersApi';
 import { useDispatch } from 'react-redux';
 import { changeLoadingFlagsDetails } from '../../store/loadingFlagsSlice';
 import { useEffect } from 'react';
@@ -13,10 +13,9 @@ const Details = () => {
   const dispatch = useDispatch();
   const detailsId = searchParams.get('details') as string;
 
-  const { data, isFetching, isLoading, isSuccess } =
-    charactersApi.useGetCharacterByIdQuery({
-      id: detailsId,
-    });
+  const { data, isFetching, isLoading, isSuccess } = useGetCharacterByIdQuery({
+    id: detailsId,
+  });
 
   const changeLoadingFlags = () => {
     dispatch(changeLoadingFlagsDetails({ isLoading, isFetching, isSuccess }));

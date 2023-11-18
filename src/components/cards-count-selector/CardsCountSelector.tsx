@@ -1,16 +1,13 @@
 import './cards-count-selector.css';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppState } from '../../store';
 import { useEffect, useState } from 'react';
 import { changeItemsPerPageCount } from '../../store/itemsPerPageSlice';
 import setQuery from '../../utils/helpers/set-query';
+import { selectItemsPerPageCount } from '../../store/selectors';
 
 const CardsCountSelector = () => {
-  const limitItems = useSelector(
-    (state: AppState) => state.itemsPerPage.itemsPerPageCount
-  );
-
+  const limitItems = useSelector(selectItemsPerPageCount);
   const [selectValue, setSelectValue] = useState(limitItems);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
