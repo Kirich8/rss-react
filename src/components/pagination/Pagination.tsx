@@ -1,5 +1,5 @@
-import { useNavigate, useSearchParams } from 'react-router-dom';
 import './pagination.css';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import setQuery from '../../utils/helpers/set-query';
 
 type PaginationProps = {
@@ -10,26 +10,10 @@ const isShowButton = (
   pageNumber: number,
   currentPage: number,
   totalPage: number
-) => {
-  switch (pageNumber) {
-    case 1:
-      return true;
-    case currentPage:
-      return true;
-    case currentPage + 1:
-      return true;
-    case currentPage - 1:
-      return true;
-    case currentPage + 2:
-      return true;
-    case currentPage - 2:
-      return true;
-    case totalPage:
-      return true;
-    default:
-      return false;
-  }
-};
+) =>
+  pageNumber === 1 ||
+  pageNumber === totalPage ||
+  Math.abs(pageNumber - currentPage) <= 2;
 
 const isShowEllipsis = (pageNumber: number, currentPage: number) => {
   switch (pageNumber) {
@@ -54,11 +38,9 @@ const Pagination = ({ totalPage }: PaginationProps) => {
           return isShowButton(index + 1, +currentPage, totalPage) ? (
             <div
               key={index}
-              className={
-                +currentPage === index + 1
-                  ? 'button pagination__item active'
-                  : 'button pagination__item'
-              }
+              className={`button pagination__item ${
+                +currentPage === index + 1 ? 'active' : ''
+              }`}
               onClick={() => {
                 searchParams.set('page', `${index + 1}`);
                 setQuery(navigate, searchParams, searchParams.size !== 0);

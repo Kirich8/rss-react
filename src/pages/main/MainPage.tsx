@@ -10,16 +10,18 @@ const MainPage = () => {
   const detailsId = searchParams.get('details');
   const navigate = useNavigate();
 
+  function catalogClickHandler() {
+    if (detailsId) {
+      searchParams.delete('details');
+      setQuery(navigate, searchParams, searchParams.size !== 0);
+    }
+  }
+
   return (
     <div className="main__catalog catalog">
       <div
         className={`catalog__content ${detailsId ? 'blur' : ''}`}
-        onClick={() => {
-          if (detailsId) {
-            searchParams.delete('details');
-            setQuery(navigate, searchParams, searchParams.size !== 0);
-          }
-        }}
+        onClick={catalogClickHandler}
       >
         <div className="catalog__settings">
           <ErrorButton />

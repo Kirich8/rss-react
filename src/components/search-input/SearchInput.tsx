@@ -20,7 +20,7 @@ const SearchInput = ({
       onKeyUp={(event) => {
         if (event.code === 'Enter') enterButtonHandler();
       }}
-    ></input>
+    />
   );
 };
 

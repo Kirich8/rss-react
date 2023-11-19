@@ -24,6 +24,8 @@ const CardsCountSelector = () => {
     changeSelectHandler();
   }, [selectValue]);
 
+  const variantsCardsNumber: string[] = ['12', '24', '36', '48', '60'];
+
   return (
     <div className="selector">
       <label className="selector__label">
@@ -33,11 +35,13 @@ const CardsCountSelector = () => {
           value={selectValue}
           onChange={(event) => setSelectValue(+event.target.value)}
         >
-          <option value="12">12</option>
-          <option value="24">24</option>
-          <option value="36">36</option>
-          <option value="48">48</option>
-          <option value="60">60</option>
+          {variantsCardsNumber.map((number) => {
+            return (
+              <option key={number} value={number}>
+                {number}
+              </option>
+            );
+          })}
         </select>
       </label>
     </div>
