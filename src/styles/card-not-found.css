@@ -1,0 +1,36 @@
+.not-found {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px 25px;
+  flex-wrap: wrap;
+  padding: 20px 15px;
+  position: relative;
+}
+
+.not-found .cloud {
+  width: 300px;
+  height: 200px;
+  transition: all 0.3s ease 0s;
+  margin: 0;
+  position: relative;
+}
+
+.not-found .cloud::after {
+  content: '';
+  background: url('/comic-cloud.webp') center no-repeat;
+  background-size: 300px 200px;
+  position: absolute;
+  left: 0;
+  width: 300px;
+  height: 200px;
+}
+
+.not-found span {
+  font-family: 'Might-Makes';
+  font-size: 25px;
+  position: absolute;
+  top: 80px;
+  left: 73px;
+  z-index: 1;
+}

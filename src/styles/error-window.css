@@ -1,0 +1,9 @@
+.error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Might-Makes';
+  font-size: 25px;
+  padding: 50px;
+}
