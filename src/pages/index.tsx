@@ -68,7 +68,7 @@ const MainPage = ({ characters, character, totalPage }: MainPageProps) => {
         <link
           rel="icon"
           type="image/x-icon"
-          href="https://raw.githubusercontent.com/Kirich8/rss-react/react-routing/src/assets/favicon.ico"
+          href="https://raw.githubusercontent.com/Kirich8/rss-react/react-nextjs/ssr/ssg/public/favicon.ico"
         />
         <title>Marvel Heroes</title>
       </Head>
