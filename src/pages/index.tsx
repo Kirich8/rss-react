@@ -14,6 +14,7 @@ import {
   INITIAL_PAGE,
   INITIAL_SEARCH,
 } from '../utils/constants/constants';
+import Head from 'next/head';
 
 export const getServerSideProps = wrapper.getServerSideProps(
   () => async (context) => {
@@ -54,22 +55,40 @@ const MainPage = ({ characters, character, totalPage }: MainPageProps) => {
   const detailsID = (router.query.details as string) || INITIAL_DETAILSID;
 
   return (
-    <div className="main__catalog catalog">
-      <div
-        className={`catalog__content ${detailsID ? 'blur' : ''}`}
-        onClick={() => {
-          if (detailsID) updateSearchParams(router, 'details', '');
-        }}
-      >
-        <div className="catalog__settings">
-          <ErrorButton />
-          <CardsCountSelector />
+    <>
+      <Head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+        />
+        <meta
+          httpEquiv="Content-Security-Policy"
+          content="upgrade-insecure-requests"
+        />
+        <link
+          rel="icon"
+          type="image/x-icon"
+          href="https://raw.githubusercontent.com/Kirich8/rss-react/react-routing/src/assets/favicon.ico"
+        />
+        <title>Marvel Heroes</title>
+      </Head>
+      <div className="main__catalog catalog">
+        <div
+          className={`catalog__content ${detailsID ? 'blur' : ''}`}
+          onClick={() => {
+            if (detailsID) updateSearchParams(router, 'details', '');
+          }}
+        >
+          <div className="catalog__settings">
+            <ErrorButton />
+            <CardsCountSelector />
+          </div>
+          <CardList characters={characters} />
+          <Pagination totalPage={totalPage} />
         </div>
-        <CardList characters={characters} />
-        <Pagination totalPage={totalPage} />
+        {character.length > 0 && <Details character={character} />}
       </div>
-      {character.length > 0 && <Details character={character} />}
-    </div>
+    </>
   );
 };
 
