@@ -1,20 +1,16 @@
-import { render, screen, waitFor } from '@testing-library/react';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
-import { createMemoryHistory } from 'history';
-import userEvent from '@testing-library/user-event';
+import { render, screen, fireEvent } from '@testing-library/react';
 import Pagination from './Pagination';
+import mockRouter from 'next-router-mock';
+
+jest.mock('next/router', () => jest.requireActual('next-router-mock'));
 
 const totalPage = 50;
 
-describe('8. "Tests for the Pagination component"', () => {
-  it('8.1 "Make sure the component updates URL query parameter when page changes"', async () => {
-    const history = createMemoryHistory();
+describe('Tests for the Pagination component', () => {
+  test('changes page number and updates query parameters when clicking on a different page', () => {
+    mockRouter.push(`/?limit=12`);
 
-    render(
-      <MemoryRouter>
-        <Pagination totalPage={totalPage} />
-      </MemoryRouter>
-    );
+    render(<Pagination totalPage={totalPage} />);
 
     expect(screen.getByText('1')).toBeDefined();
     expect(screen.getByText('2')).toBeDefined();
@@ -22,46 +18,24 @@ describe('8. "Tests for the Pagination component"', () => {
     expect(screen.getByText('...')).toBeDefined();
     expect(screen.getByText(`${totalPage}`)).toBeDefined();
 
-    userEvent.click(screen.getByText('2'));
+    fireEvent.click(screen.getByText('2'));
 
-    await waitFor(() => {
-      waitFor(() => {
-        const searchParams = new URLSearchParams(history.location.search);
-        expect(searchParams.get('page')).toBe('2');
-      });
-    });
+    expect(mockRouter.query).toStrictEqual({ page: '2', limit: '12' });
   });
 
-  it('Renders Pagination with ellipsis and correct page numbers', () => {
-    const history = createMemoryHistory();
+  test('displays appropriate page numbers when already on a specific page', () => {
+    mockRouter.push(`/?page=30&limit=12`);
 
-    render(
-      <MemoryRouter initialEntries={['/?page=30']}>
-        <Routes>
-          <Route path="/" element={<Pagination totalPage={totalPage} />} />
-        </Routes>
-      </MemoryRouter>
-    );
+    render(<Pagination totalPage={totalPage} />);
 
-    waitFor(() => {
-      expect(screen.getByText('1')).toBeDefined();
-      expect(screen.getAllByText('...')[0]).toBeDefined();
-      expect(screen.getByText('28')).toBeDefined();
-      expect(screen.getByText('29')).toBeDefined();
-      expect(screen.getByText('30')).toBeDefined();
-      expect(screen.getByText('31')).toBeDefined();
-      expect(screen.getByText('32')).toBeDefined();
-      expect(screen.getAllByText('...')[1]).toBeDefined();
-      expect(screen.getByText(`${totalPage}`)).toBeDefined();
-    });
-
-    userEvent.click(screen.getByText('32'));
-
-    waitFor(() => {
-      waitFor(() => {
-        const searchParams = new URLSearchParams(history.location.search);
-        expect(searchParams.get('page')).toBe('32');
-      });
-    });
+    expect(screen.getByText('1')).toBeDefined();
+    expect(screen.getAllByText('...')[0]).toBeDefined();
+    expect(screen.getByText('28')).toBeDefined();
+    expect(screen.getByText('29')).toBeDefined();
+    expect(screen.getByText('30')).toBeDefined();
+    expect(screen.getByText('31')).toBeDefined();
+    expect(screen.getByText('32')).toBeDefined();
+    expect(screen.getAllByText('...')[1]).toBeDefined();
+    expect(screen.getByText(`${totalPage}`)).toBeDefined();
   });
 });

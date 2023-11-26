@@ -1,51 +1,42 @@
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
-import * as reduxHooks from 'react-redux';
+import { Provider } from 'react-redux';
+import { store } from '@/store';
 import CardsCountSelector from './CardsCountSelector';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import mockRouter from 'next-router-mock';
 
-jest.mock('react-redux');
-
-const mockInitialState = {
-  search: { searchValue: '' },
-  itemsPerPage: {
-    itemsPerPage: 12,
-    itemsPerPageCount: [],
-  },
-  loadingFlags: {
-    main: {
-      isFetching: false,
-      isLoading: false,
-      isSuccess: false,
-    },
-    details: {
-      isFetching: false,
-      isLoading: false,
-      isSuccess: false,
-    },
-  },
-};
-
-const setLimitItemsMock = jest.fn();
-const mockedDispatch = jest.spyOn(reduxHooks, 'useDispatch');
-const mockedSelector = jest.spyOn(reduxHooks, 'useSelector');
+jest.mock('next/router', () => jest.requireActual('next-router-mock'));
 
 describe('Tests for the CardsCountSelector component', () => {
-  it('Calls setLimitItemsMock twice when the selector value changes', () => {
-    mockedSelector.mockReturnValue(mockInitialState);
-    mockedDispatch.mockReturnValue(setLimitItemsMock);
+  test('selects the correct item count based on the "limit" URL parameter', () => {
+    mockRouter.push('/?page=1&limit=4');
 
     render(
-      <MemoryRouter initialEntries={['/']}>
-        <Routes>
-          <Route path="/" element={<CardsCountSelector />} />
-        </Routes>
-      </MemoryRouter>
+      <Provider store={store}>
+        <CardsCountSelector />
+      </Provider>
     );
 
     const selectorSelect = screen.getByRole('combobox');
 
+    expect(selectorSelect).toHaveValue('4');
+
     fireEvent.change(selectorSelect, { target: { value: '24' } });
-    expect(setLimitItemsMock).toHaveBeenCalledTimes(2);
+
+    expect(localStorage.getItem('marvel:items-per-page')).toBe('24');
+  });
+
+  test('defaults to a specific item count when the "limit" parameter is missing', () => {
+    mockRouter.push('/?page=1');
+
+    render(
+      <Provider store={store}>
+        <CardsCountSelector />
+      </Provider>
+    );
+
+    const selectorSelect = screen.getByRole('combobox');
+
+    expect(selectorSelect).toHaveValue('12');
   });
 });

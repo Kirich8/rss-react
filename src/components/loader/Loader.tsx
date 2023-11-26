@@ -1,10 +1,9 @@
-import './loader.css';
-import image from '../../assets/images/baby-groot.gif';
+import Image from 'next/image';
 
 const Loader = () => {
   return (
     <div className="loader">
-      <img src={image} alt="Loading" data-testid="loader-image" />
+      <Image src="/baby-groot.gif" alt="loading" width={160} height={250} />
       <p>Loading...</p>
     </div>
   );

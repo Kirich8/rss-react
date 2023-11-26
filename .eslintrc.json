@@ -17,14 +17,12 @@
   "env": {
     "browser": true,
     "es6": true,
-    "jest": true,
     "node": true
   },
   "plugins": ["@typescript-eslint", "react", "react-hooks"],
   "rules": {
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "off",
-    "comma-dangle": ["error", "only-multiline"],
     "react/prop-types": "off",
     "react/display-name": "off",
     "@typescript-eslint/interface-name-prefix": "off",

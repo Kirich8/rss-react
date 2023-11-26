@@ -22,7 +22,7 @@ class ApiService {
         results: characters.data.results,
       };
     } catch (error) {
-      throw new Error();
+      throw new Error(`${error}`);
     }
   }
 
@@ -58,7 +58,7 @@ class ApiService {
         results: characters.data.results,
       };
     } catch (error) {
-      throw new Error();
+      throw new Error(`${error}`);
     }
   }
 }

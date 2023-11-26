@@ -1,44 +1,44 @@
-import './header.css';
-import { useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { changeSearchValue } from '../../store/searchSlice';
-import SearchButton from '../search-button/SearchButton';
-import SearchInput from '../search-input/SearchInput';
-import setQuery from '../../utils/helpers/set-query';
-import { selectSearchValue } from '../../store/selectors';
+import { changeSearchValue } from '@/store/searchSlice';
+import { INITIAL_SEARCH } from '@/utils/constants/constants';
+import { updateSearchParams } from '@/utils/helpers/update-search-params';
+import { useRouter } from 'next/router';
+import { useRef } from 'react';
+import { useDispatch } from 'react-redux';
 
 const Header = () => {
-  const searchValue = useSelector(selectSearchValue);
-  const [inputValue, setInputValue] = useState(searchValue);
-  const [searchParams] = useSearchParams();
+  const router = useRouter();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const searchValue = (router.query.search as string) || INITIAL_SEARCH;
+  const inputSearchValue = useRef(searchValue);
 
-  const updateState = () => {
-    dispatch(changeSearchValue(inputValue));
-
-    searchParams.set('page', '1');
-
-    inputValue
-      ? searchParams.set('search', inputValue)
-      : searchParams.delete('search');
-
-    setQuery(navigate, searchParams, searchParams.size !== 0);
-    localStorage.setItem('input_value', inputValue);
+  const formSubmitHandler = (value: string) => {
+    localStorage.setItem('marvel:search-value', value);
+    dispatch(
+      changeSearchValue({
+        searchValue: value,
+      })
+    );
+    updateSearchParams(router, 'search', value, true);
   };
 
   return (
     <header className="header">
       <h1 className="header__title">Marvel Heroes</h1>
-      <div className="header__searchbox searchbox">
-        <SearchInput
-          inputValue={inputValue}
-          setInputValue={setInputValue}
-          enterButtonHandler={updateState}
+      <form
+        className="header__searchbox searchbox"
+        onSubmit={(event) => {
+          event.preventDefault();
+          formSubmitHandler(inputSearchValue.current);
+        }}
+      >
+        <input
+          className="searchbox__search"
+          placeholder="name starts with"
+          defaultValue={searchValue}
+          onChange={(event) => (inputSearchValue.current = event.target.value)}
         />
-        <SearchButton clickButtonHandler={updateState} />
-      </div>
+        <button className="button">Search</button>
+      </form>
     </header>
   );
 };

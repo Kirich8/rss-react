@@ -1,19 +1,20 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
-import Header from './Header';
 import { Provider } from 'react-redux';
 import { store } from '../../store';
+import Header from './Header';
+import mockRouter from 'next-router-mock';
 
-describe('9. "Tests for the Search component"', () => {
-  it('9.1 "Verify that clicking the Search button saves the entered value to the local storage"', () => {
+jest.mock('next/router', () => jest.requireActual('next-router-mock'));
+mockRouter.push(`/?page=1&limit=3`);
+
+describe('Tests for the Search component', () => {
+  test('Verify that clicking the Search button saves the entered value to the local storage', () => {
     const mockSearchValue = 'Spider-Man';
 
     render(
-      <BrowserRouter>
-        <Provider store={store}>
-          <Header />
-        </Provider>
-      </BrowserRouter>
+      <Provider store={store}>
+        <Header />
+      </Provider>
     );
 
     const searchInput = screen.getByPlaceholderText('name starts with');
@@ -23,25 +24,23 @@ describe('9. "Tests for the Search component"', () => {
 
     fireEvent.click(searchButton);
 
-    expect(localStorage.getItem('input_value')).toBe(mockSearchValue);
+    expect(localStorage.getItem('marvel:search-value')).toBe(mockSearchValue);
   });
 
-  it('9.2 "Check that the component retrieves the value from the local storage upon mounting"', () => {
+  test('Check that the component retrieves the value from the local storage upon mounting', () => {
     const mockSearchValue = 'Spider-Man';
 
-    localStorage.setItem('input_value', mockSearchValue);
+    localStorage.setItem('marvel:search-value', mockSearchValue);
 
     render(
-      <BrowserRouter>
-        <Provider store={store}>
-          <Header />
-        </Provider>
-      </BrowserRouter>
+      <Provider store={store}>
+        <Header />
+      </Provider>
     );
 
     const searchInput = screen.getByPlaceholderText(
       'name starts with'
     ) as HTMLInputElement;
-    expect(searchInput.value).toBe(localStorage.getItem('input_value'));
+    expect(searchInput.value).toBe(localStorage.getItem('marvel:search-value'));
   });
 });

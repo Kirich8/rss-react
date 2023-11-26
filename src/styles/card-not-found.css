@@ -8,11 +8,6 @@
   position: relative;
 }
 
-.not-found img {
-  width: 250px;
-  height: 250px;
-}
-
 .not-found .cloud {
   width: 300px;
   height: 200px;
@@ -23,7 +18,7 @@
 
 .not-found .cloud::after {
   content: '';
-  background: url('../../assets/images/comic-cloud.webp') center no-repeat;
+  background: url('/comic-cloud.webp') center no-repeat;
   background-size: 300px 200px;
   position: absolute;
   left: 0;
@@ -35,9 +30,7 @@
   font-family: 'Might-Makes';
   font-size: 25px;
   position: absolute;
-  top: 120px;
-  left: 15px;
-  width: 300px;
-  height: 200px;
+  top: 80px;
+  left: 73px;
   z-index: 1;
 }

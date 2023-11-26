@@ -1,11 +1,7 @@
 .loader {
   display: flex;
   flex-direction: column;
-}
-
-.loader img {
-  width: 160px;
-  height: 250px;
+  align-items: center;
 }
 
 .loader p {

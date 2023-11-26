@@ -1,13 +1,14 @@
-import Header from '../components/header/Header';
-import { Outlet } from 'react-router-dom';
+import Header from '@/components/header/Header';
 
-const Layout = () => (
+type LayoutProps = {
+  children: React.ReactNode;
+};
+
+const Layout = ({ children }: LayoutProps) => (
   <div className="wrapper">
     <Header />
-    <div className="main">
-      <Outlet />
-    </div>
-    <div className="footer">2023</div>
+    <main className="main">{children}</main>
+    <footer className="footer">2023</footer>
   </div>
 );
 

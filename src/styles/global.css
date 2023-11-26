@@ -1,0 +1,14 @@
+@import './index.css';
+@import './not-found-page.css';
+@import './error-window.css';
+@import './main-page.css';
+@import './card-not-found.css';
+@import './cards-count-selector.css';
+@import './card-list.css';
+@import './details.css';
+@import './header.css';
+@import './hero-card.css';
+@import './loader.css';
+@import './search-input.css';
+@import './fonts.css';
+@import './pagination.css';

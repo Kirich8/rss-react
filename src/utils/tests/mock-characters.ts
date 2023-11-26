@@ -54,8 +54,7 @@ export const mockCharacters = [
       extension: 'jpg',
       path: 'http://i.annihil.us/u/prod/marvel/i/mg/5/a0/538615ca33ab0',
     },
-    description:
-      'Dr. Bruce Banner lives a life caught between the soft-spoken scientist he’s always been and the uncontrollable green monster powered by his rage. Exposed to heavy doses of gamma radiation, scientist Bruce Banner transforms into the mean, green rage machine called the Hulk.',
+    description: '',
     urls: [
       {
         type: 'detail',

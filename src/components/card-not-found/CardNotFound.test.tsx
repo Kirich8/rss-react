@@ -11,7 +11,7 @@ describe('CardNotFound component', () => {
 
   test('renders the image with alt text "Not found"', () => {
     const { getByAltText } = render(<CardNotFound />);
-    const image = getByAltText('Not found');
+    const image = getByAltText('not found');
     expect(image).toBeInTheDocument();
   });
 

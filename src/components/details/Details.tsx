@@ -1,77 +1,53 @@
-import './details.css';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { useGetCharacterByIdQuery } from '../../utils/services/charactersApi';
-import { useDispatch } from 'react-redux';
-import { changeLoadingFlagsDetails } from '../../store/loadingFlagsSlice';
-import { useEffect } from 'react';
-import Loader from '../loader/Loader';
-import setQuery from '../../utils/helpers/set-query';
+import { updateSearchParams } from '@/utils/helpers/update-search-params';
+import { ICharacter } from '@/utils/types/ICharacter';
+import { useRouter } from 'next/router';
 
-const Details = () => {
-  const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const detailsId = searchParams.get('details') as string;
+type DetailsProps = {
+  character: ICharacter[];
+};
 
-  const { data, isFetching, isLoading, isSuccess } = useGetCharacterByIdQuery({
-    id: detailsId,
-  });
-
-  const changeLoadingFlags = () => {
-    dispatch(changeLoadingFlagsDetails({ isLoading, isFetching, isSuccess }));
-  };
-
-  useEffect(() => {
-    changeLoadingFlags();
-  }, [isLoading, isFetching, isSuccess]);
+const Details = ({ character }: DetailsProps) => {
+  const router = useRouter();
 
   return (
     <div className="details">
-      {isFetching ? (
-        <Loader />
-      ) : (
-        data?.results.map((character) => {
-          return (
-            <div className="details__content" key={character.id}>
-              <button
-                className="button"
-                data-testid="close-button"
-                onClick={() => {
-                  searchParams.delete('details');
-                  setQuery(navigate, searchParams, searchParams.size !== 0);
-                }}
-              >
-                x
-              </button>
-              <p>{character.name}</p>
-              <div className="details__image">
-                <img
-                  src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
-                  alt="Hero"
-                />
-              </div>
-              <div className="details__description">
-                {character.description.trim() === ''
-                  ? 'Description is missing'
-                  : character.description}
-              </div>
-              <div>
-                {character.urls.map((url) => {
-                  return (
-                    url.type === 'comiclink' && (
-                      <div key={url.url}>
-                        <a className="button" href={url.url} target="blank">
-                          Comics with a hero
-                        </a>
-                      </div>
-                    )
-                  );
-                })}
-              </div>
+      {character.map((heroInfo) => {
+        return (
+          <div className="details__content" key={heroInfo.id}>
+            <button
+              className="button"
+              onClick={() => updateSearchParams(router, 'details', '')}
+            >
+              x
+            </button>
+            <p>{heroInfo.name}</p>
+            <div className="details__image">
+              <img
+                src={`${heroInfo.thumbnail.path}.${heroInfo.thumbnail.extension}`}
+                alt="Hero"
+              />
             </div>
-          );
-        })
-      )}
+            <div className="details__description">
+              {heroInfo.description.trim() === ''
+                ? 'Description is missing'
+                : heroInfo.description}
+            </div>
+            <div>
+              {heroInfo.urls.map((url) => {
+                return (
+                  url.type === 'comiclink' && (
+                    <div key={url.url}>
+                      <a className="button" href={url.url} target="blank">
+                        Comics with a hero
+                      </a>
+                    </div>
+                  )
+                );
+              })}
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 };

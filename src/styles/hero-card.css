@@ -12,12 +12,6 @@
   transform: scale(1.05);
 }
 
-.herocard__image img {
-  width: 300px;
-  height: 300px;
-  object-fit: cover;
-}
-
 .info__name {
   font-family: 'Might-Makes';
   z-index: 1;

@@ -1,23 +1,24 @@
+import { INITIAL_ITEMS_COUNT } from '@/utils/constants/constants';
 import { createSlice } from '@reduxjs/toolkit';
-import { ICharacter } from '../utils/types/ICharacter';
+
+const isBrowser = typeof window !== 'undefined';
+
+const itemsPerPageSave = isBrowser
+  ? localStorage.getItem('marvel:items-per-page') || INITIAL_ITEMS_COUNT
+  : INITIAL_ITEMS_COUNT;
 
 const itemsPerPageSlice = createSlice({
   name: 'itemsPerPage',
   initialState: {
-    itemsPerPageCount: 12,
-    itemsPerPage: [] as ICharacter[],
+    itemsPerPageCount: +itemsPerPageSave,
   },
   reducers: {
     changeItemsPerPageCount(state, action) {
       state.itemsPerPageCount = action.payload.itemsPerPageCount;
     },
-    changeItemsPerPage(state, action) {
-      state.itemsPerPage = action.payload.itemsPerPage;
-    },
   },
 });
 
-export const { changeItemsPerPageCount, changeItemsPerPage } =
-  itemsPerPageSlice.actions;
+export const { changeItemsPerPageCount } = itemsPerPageSlice.actions;
 
 export default itemsPerPageSlice.reducer;

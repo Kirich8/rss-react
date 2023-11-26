@@ -1,6 +1,6 @@
-import './pagination.css';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import setQuery from '../../utils/helpers/set-query';
+import { INITIAL_PAGE } from '@/utils/constants/constants';
+import { updateSearchParams } from '@/utils/helpers/update-search-params';
+import { useRouter } from 'next/router';
 
 type PaginationProps = {
   totalPage: number;
@@ -27,9 +27,8 @@ const isShowEllipsis = (pageNumber: number, currentPage: number) => {
 };
 
 const Pagination = ({ totalPage }: PaginationProps) => {
-  const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
-  const currentPage = searchParams.get('page') || '1';
+  const router = useRouter();
+  const currentPage = Number(router.query.page) || INITIAL_PAGE;
 
   return (
     <div className="catalog__pagination pagination">
@@ -41,10 +40,7 @@ const Pagination = ({ totalPage }: PaginationProps) => {
               className={`button pagination__item ${
                 +currentPage === index + 1 ? 'active' : ''
               }`}
-              onClick={() => {
-                searchParams.set('page', `${index + 1}`);
-                setQuery(navigate, searchParams, searchParams.size !== 0);
-              }}
+              onClick={() => updateSearchParams(router, 'page', `${index + 1}`)}
             >
               {index + 1}
             </div>

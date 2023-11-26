@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import ErrorWindow from './ErrorWindow';
 
 describe('Tests for the ErrorWindow component', () => {
-  it('Renders error window with correct content', () => {
+  test('Renders error window with correct content', () => {
     render(<ErrorWindow />);
 
     const imageElement = screen.getByRole('img');
@@ -19,7 +19,7 @@ describe('Tests for the ErrorWindow component', () => {
     expect(reloadButtonElement).toBeTruthy();
   });
 
-  it('Should reload the page when the reload button is clicked', () => {
+  test('Should reload the page when the reload button is clicked', () => {
     render(<ErrorWindow />);
 
     const reloadMock = jest.fn();

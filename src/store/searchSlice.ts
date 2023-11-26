@@ -1,13 +1,20 @@
+import { INITIAL_SEARCH } from '@/utils/constants/constants';
 import { createSlice } from '@reduxjs/toolkit';
+
+const isBrowser = typeof window !== 'undefined';
+
+const searchValueSave = isBrowser
+  ? localStorage.getItem('marvel:search-value') || INITIAL_SEARCH
+  : INITIAL_SEARCH;
 
 const searchSlice = createSlice({
   name: 'search',
   initialState: {
-    searchValue: '',
+    searchValue: searchValueSave,
   },
   reducers: {
     changeSearchValue(state, action) {
-      state.searchValue = action.payload;
+      state.searchValue = action.payload.searchValue;
     },
   },
 });

@@ -1,30 +1,27 @@
-import './cards-count-selector.css';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
-import { changeItemsPerPageCount } from '../../store/itemsPerPageSlice';
-import setQuery from '../../utils/helpers/set-query';
-import { selectItemsPerPageCount } from '../../store/selectors';
+import { changeItemsPerPageCount } from '@/store/itemsPerPageSlice';
+import { INITIAL_ITEMS_COUNT } from '@/utils/constants/constants';
+import { updateSearchParams } from '@/utils/helpers/update-search-params';
+import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
 
 const CardsCountSelector = () => {
-  const limitItems = useSelector(selectItemsPerPageCount);
-  const [selectValue, setSelectValue] = useState(limitItems);
-  const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
+  const router = useRouter();
   const dispatch = useDispatch();
-
-  const changeSelectHandler = () => {
-    dispatch(changeItemsPerPageCount({ itemsPerPageCount: selectValue }));
-
-    searchParams.set('page', '1');
-    setQuery(navigate, searchParams, searchParams.size !== 0);
-  };
-
-  useEffect(() => {
-    changeSelectHandler();
-  }, [selectValue]);
-
+  const limitItems = Number(router.query.limit) || INITIAL_ITEMS_COUNT;
   const variantsCardsNumber: string[] = ['12', '24', '36', '48', '60'];
+
+  if (!variantsCardsNumber.includes(`${limitItems}`))
+    variantsCardsNumber.push(`${limitItems}`);
+
+  const changeSelectHandler = (value: string) => {
+    localStorage.setItem('marvel:items-per-page', value);
+    dispatch(
+      changeItemsPerPageCount({
+        itemsPerPageCount: +value,
+      })
+    );
+    updateSearchParams(router, 'limit', value, true);
+  };
 
   return (
     <div className="selector">
@@ -32,8 +29,8 @@ const CardsCountSelector = () => {
         Cards per page:
         <select
           className="selector__select"
-          value={selectValue}
-          onChange={(event) => setSelectValue(+event.target.value)}
+          value={+limitItems}
+          onChange={(event) => changeSelectHandler(event.target.value)}
         >
           {variantsCardsNumber.map((number) => {
             return (
