@@ -1,7 +1,9 @@
 @import '../layout/layout.css';
+@import '../pages/controlled-form/controlled-form-page.css';
 @import '../components/header/header.css';
 @import '../components/footer/footer.css';
 @import './link.css';
+@import './error-message.css';
 
 body {
   margin: 0 auto;
@@ -12,5 +14,10 @@ a {
 }
 
 h1 {
+  font-size: 30px;
+  margin: 0;
+}
+
+h2 {
   margin: 0;
 }

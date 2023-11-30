@@ -1,0 +1,115 @@
+.cfp {
+  padding: 40px;
+  background: rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  color: white;
+  min-width: 50%;
+}
+
+.cfp__title {
+  margin-bottom: 35px;
+  font-size: 30px;
+}
+
+.cfp__form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.input-box {
+  position: relative;
+}
+
+.input-box input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+}
+
+.input-box label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  pointer-events: none;
+  transition: 0.5s;
+}
+
+.cfp__form .input-box input::placeholder {
+  color: transparent;
+}
+
+.cfp__form .input-box input:focus ~ label,
+.cfp__form .input-box input:not(:placeholder-shown) ~ label {
+  top: -25px;
+  left: 0;
+  font-size: 15px;
+  color: lightgreen;
+}
+
+.cfp__button {
+  width: 120px;
+  padding: 10px 15px;
+  background-color: transparent;
+  border: 2px solid lightgreen;
+  color: lightgreen;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 10px;
+  transition: all 0.3s ease 0s;
+  margin-top: 30px;
+}
+
+.cfp__button:hover {
+  transform: scale(1.1);
+}
+
+.cfp__button:active {
+  transform: scale(1);
+}
+
+.select-box,
+.checkbox {
+  padding: 5px 0;
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 30px;
+}
+
+.select-box select {
+  width: 100px;
+  background-color: transparent;
+  border: 0;
+  border-bottom: 1px solid white;
+  color: white;
+  font-size: 16px;
+  padding: 5px;
+  cursor: pointer;
+  outline: none;
+}
+
+.checkbox {
+  align-items: center;
+}
+
+.checkbox .error-message {
+  margin: 10px 0;
+}
+
+.checkbox input {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+}
