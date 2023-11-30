@@ -1,0 +1,14 @@
+.link {
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 5px 10px;
+  transition: all 0.3s ease 0s;
+  width: 130px;
+}
+
+.link:hover {
+  transform: scale(1.1);
+}
