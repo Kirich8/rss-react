@@ -59,4 +59,17 @@ export const schema = yup.object({
     .boolean()
     .oneOf([true], 'Confirm your agreement with the terms and conditions of the company')
     .required(''),
+
+  image: yup
+    .mixed<FileList>()
+    .required('Upload a JPEG or PNG image with a maximum size of 500 kB')
+    .test('fileRequired', 'Upload a JPEG or PNG image with a maximum size of 500 kB', (file) => !!file)
+    .test(
+      'fileSize',
+      'Upload a JPEG or PNG image with a maximum size of 500 kB',
+      (fileList) => !fileList[0] || fileList[0].size <= 500000
+    )
+    .test('fileType', 'Upload a JPEG or PNG image with a maximum size of 500 kB', (fileList) =>
+      fileList.length ? ['image/jpeg', 'image/png'].includes(fileList[0].type) : false
+    ),
 });

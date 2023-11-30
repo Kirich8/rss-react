@@ -80,8 +80,8 @@
 }
 
 .select-box,
-.checkbox {
-  padding: 5px 0;
+.checkbox,
+.imagebox {
   position: relative;
   display: flex;
   align-items: baseline;

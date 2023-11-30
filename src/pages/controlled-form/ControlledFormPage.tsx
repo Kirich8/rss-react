@@ -10,6 +10,7 @@ interface IFormProps {
   confirmPassword: string;
   gender: string;
   conditions: boolean;
+  image: FileList;
 }
 
 const ControlledFormPage = () => {
@@ -78,8 +79,8 @@ const ControlledFormPage = () => {
 
           <div className="imagebox">
             <label>Image: </label>
-            <input type="file" />
-            {/* {errors.conditions && <p className="error-message">{errors.conditions.message}</p>} */}
+            <input type="file" {...register('image')} />
+            {errors.image && <p className="error-message">{errors.image.message}</p>}
           </div>
 
           <button className="cfp__button" type="submit">
