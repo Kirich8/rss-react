@@ -28,6 +28,8 @@ export const schema = yup.object({
     .email()
     .required('Email is a required field'),
 
+  country: yup.string().required('Country is a required field'),
+
   password: yup
     .string()
     .matches(/[A-Z]/, {

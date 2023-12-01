@@ -1,11 +1,13 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schema } from '../../utils/yup/schema';
+import { countriesList } from '../../utils/constants/countries-list';
 
 interface IFormProps {
   name: string;
   age: number;
   email: string;
+  country: string;
   password: string;
   confirmPassword: string;
   gender: string;
@@ -17,7 +19,7 @@ const ControlledFormPage = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<IFormProps>({
     mode: 'onChange',
     resolver: yupResolver(schema),
@@ -51,6 +53,18 @@ const ControlledFormPage = () => {
           </div>
 
           <div className="input-box">
+            <input
+              type="text"
+              {...register('country')}
+              autoComplete="off"
+              placeholder="country"
+              list="list-of-countries"
+            />
+            <label>Country: </label>
+            {errors.country && <p className="error-message">{errors.country.message}</p>}
+          </div>
+
+          <div className="input-box">
             <input type="password" {...register('password')} autoComplete="off" placeholder="password" />
             <label>Password: </label>
             {errors.password && <p className="error-message">{errors.password.message}</p>}
@@ -71,19 +85,27 @@ const ControlledFormPage = () => {
             {errors.gender && <p className="error-message">{errors.gender.message}</p>}
           </div>
 
-          <div className="checkbox">
+          <div className="check-box">
             <label>Accept T&C: </label>
             <input type="checkbox" {...register('conditions')} />
             {errors.conditions && <p className="error-message">{errors.conditions.message}</p>}
           </div>
 
-          <div className="imagebox">
+          <div className="image-box">
             <label>Image: </label>
             <input type="file" {...register('image')} />
             {errors.image && <p className="error-message">{errors.image.message}</p>}
           </div>
 
-          <button className="cfp__button" type="submit">
+          <datalist id="list-of-countries">
+            {countriesList.map((country, index) => (
+              <option key={index} value={country}>
+                {country}
+              </option>
+            ))}
+          </datalist>
+
+          <button className={isValid ? 'cfp__button' : 'disabled__button'} type="submit">
             Submit
           </button>
         </form>

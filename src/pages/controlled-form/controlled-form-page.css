@@ -58,6 +58,19 @@
   color: lightgreen;
 }
 
+.disabled__button {
+  width: 120px;
+  padding: 10px 15px;
+  background-color: transparent;
+  border: 2px solid rgb(122, 122, 122);
+  color: rgb(122, 122, 122);
+  cursor: not-allowed;
+  font-size: 16px;
+  border-radius: 10px;
+  transition: all 0.3s ease 0s;
+  margin-top: 30px;
+}
+
 .cfp__button {
   width: 120px;
   padding: 10px 15px;
@@ -80,8 +93,9 @@
 }
 
 .select-box,
-.checkbox,
-.imagebox {
+.check-box,
+.image-box,
+.countries-box {
   position: relative;
   display: flex;
   align-items: baseline;
@@ -100,15 +114,15 @@
   outline: none;
 }
 
-.checkbox {
+.check-box {
   align-items: center;
 }
 
-.checkbox .error-message {
+.check-box .error-message {
   margin: 10px 0;
 }
 
-.checkbox input {
+.check-box input {
   width: 20px;
   height: 20px;
   margin: 0;
