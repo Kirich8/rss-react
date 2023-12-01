@@ -44,6 +44,7 @@
   color: #fff;
   pointer-events: none;
   transition: 0.5s;
+  text-transform: capitalize;
 }
 
 .cfp__form .input-box input::placeholder {
