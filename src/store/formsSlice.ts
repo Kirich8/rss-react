@@ -12,7 +12,7 @@ const formsSlice = createSlice({
       confirmPassword: '',
       gender: '',
       conditions: false,
-      // image: '',
+      image: '',
     },
   },
   reducers: {
@@ -25,6 +25,7 @@ const formsSlice = createSlice({
       state.controlled.confirmPassword = action.payload.confirmPassword;
       state.controlled.gender = action.payload.gender;
       state.controlled.conditions = action.payload.conditions;
+      state.controlled.image = action.payload.image;
     },
   },
 });

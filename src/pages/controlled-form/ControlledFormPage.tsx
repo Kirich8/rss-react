@@ -9,7 +9,7 @@ import { changeControlledFormData } from '../../store/formsSlice';
 import CFPInputBox from '../../components/cfp/cfp-input/CFPInputBox';
 import CFPSelectBox from '../../components/cfp/cfp-select/CFPSelectBox';
 import CFPCheckBox from '../../components/cfp/cfp-check/CFPCheckBox';
-// import CFPImageBox from '../../components/cfp/cfp-image/CFPImageBox';
+import CFPImageBox from '../../components/cfp/cfp-image/CFPImageBox';
 
 const ControlledFormPage = () => {
   const dispatch = useDispatch();
@@ -24,8 +24,26 @@ const ControlledFormPage = () => {
     resolver: yupResolver(schema),
   });
 
-  const submitFormHandler: SubmitHandler<IFormProps> = (data) => {
-    dispatch(changeControlledFormData(data));
+  const submitFormHandler: SubmitHandler<IFormProps> = (formData) => {
+    const reader = new FileReader();
+
+    reader.readAsDataURL(formData.image[0]);
+    reader.onload = () => {
+      dispatch(
+        changeControlledFormData({
+          name: formData.name,
+          age: formData.age,
+          email: formData.email,
+          country: formData.country,
+          password: formData.password,
+          confirmPassword: formData.confirmPassword,
+          gender: formData.gender,
+          conditions: formData.conditions,
+          image: reader.result,
+        })
+      );
+    };
+
     navigate('/', { state: { from: 'controlled-form' } });
   };
 
@@ -45,7 +63,7 @@ const ControlledFormPage = () => {
 
           <CFPSelectBox register={register} errorMessage={errors.gender?.message} />
           <CFPCheckBox register={register} errorMessage={errors.conditions?.message} />
-          {/* <CFPImageBox register={register} errorMessage={errors.image?.message} /> */}
+          <CFPImageBox register={register} errorMessage={errors.image?.message} />
 
           <button className={isValid ? 'cfp__button' : 'disabled__button'} type="submit" disabled={!isValid}>
             Submit
