@@ -7,5 +7,5 @@ export interface IFormProps {
   confirmPassword: string;
   gender: string;
   conditions: boolean;
-  image: FileList;
+  // image: FileList;
 }
