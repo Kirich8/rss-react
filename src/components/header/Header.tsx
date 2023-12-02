@@ -1,7 +1,17 @@
+import { Link } from 'react-router-dom';
+
 const Header = () => {
   return (
     <header className="header">
-      <h1>React. Forms</h1>
+      <Link className="link" to={'/'}>
+        Main
+      </Link>
+      <Link className="link" to={'/uncontrolled-form'}>
+        Uncontrolled form
+      </Link>
+      <Link className="link" to={'/controlled-form'}>
+        Controlled form
+      </Link>
     </header>
   );
 };

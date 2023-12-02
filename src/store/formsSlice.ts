@@ -1,9 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { IFormState } from '../utils/interfaces/IFormState';
 
 const formsSlice = createSlice({
   name: 'forms',
   initialState: {
-    controlled: {
+    listForms: [] as IFormState[],
+    lastForm: {
       name: '',
       age: 0,
       email: '',
@@ -13,23 +15,26 @@ const formsSlice = createSlice({
       gender: '',
       conditions: false,
       image: '',
-    },
+    } as IFormState,
   },
   reducers: {
-    changeControlledFormData(state, action) {
-      state.controlled.name = action.payload.name;
-      state.controlled.age = action.payload.age;
-      state.controlled.email = action.payload.email;
-      state.controlled.country = action.payload.country;
-      state.controlled.password = action.payload.password;
-      state.controlled.confirmPassword = action.payload.confirmPassword;
-      state.controlled.gender = action.payload.gender;
-      state.controlled.conditions = action.payload.conditions;
-      state.controlled.image = action.payload.image;
+    changeDataLastForm(state, action) {
+      state.lastForm.name = action.payload.name;
+      state.lastForm.age = action.payload.age;
+      state.lastForm.email = action.payload.email;
+      state.lastForm.country = action.payload.country;
+      state.lastForm.password = action.payload.password;
+      state.lastForm.confirmPassword = action.payload.confirmPassword;
+      state.lastForm.gender = action.payload.gender;
+      state.lastForm.conditions = action.payload.conditions;
+      state.lastForm.image = action.payload.image;
+    },
+    updateListsForms(state) {
+      state.listForms.unshift(state.lastForm);
     },
   },
 });
 
-export const { changeControlledFormData } = formsSlice.actions;
+export const { changeDataLastForm, updateListsForms } = formsSlice.actions;
 
 export default formsSlice.reducer;

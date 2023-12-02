@@ -1,14 +1,16 @@
 .link {
-  text-decoration: none;
-  color: black;
+  width: 150px;
+  padding: 10px 15px;
+  color: white;
+  align-self: center;
   cursor: pointer;
-  border: 2px solid black;
-  border-radius: 5px;
-  padding: 5px 10px;
+  font-size: 16px;
+  border-radius: 10px;
   transition: all 0.3s ease 0s;
-  width: 130px;
+  margin-top: 30px;
+  transition: all 0.3s ease 0s;
 }
 
 .link:hover {
-  transform: scale(1.1);
+  color: lightgreen;
 }

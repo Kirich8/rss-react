@@ -5,7 +5,7 @@ import { InputFields, inputFieldsList } from '../../components/cfp/cfp-input/inp
 import { IFormProps } from '../../utils/interfaces/IFormProps';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { changeControlledFormData } from '../../store/formsSlice';
+import { changeDataLastForm, updateListsForms } from '../../store/formsSlice';
 import CFPInputBox from '../../components/cfp/cfp-input/CFPInputBox';
 import CFPSelectBox from '../../components/cfp/cfp-select/CFPSelectBox';
 import CFPCheckBox from '../../components/cfp/cfp-check/CFPCheckBox';
@@ -30,7 +30,7 @@ const ControlledFormPage = () => {
     reader.readAsDataURL(formData.image[0]);
     reader.onload = () => {
       dispatch(
-        changeControlledFormData({
+        changeDataLastForm({
           name: formData.name,
           age: formData.age,
           email: formData.email,
@@ -42,6 +42,7 @@ const ControlledFormPage = () => {
           image: reader.result,
         })
       );
+      dispatch(updateListsForms());
     };
 
     navigate('/', { state: { from: 'controlled-form' } });
