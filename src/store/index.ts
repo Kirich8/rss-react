@@ -1,15 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { IFormProps } from '../utils/interfaces/IFormProps';
 import formsSlice from './formsSlice';
-
-export interface AppState {
-  forms: {
-    controlledForm: IFormProps;
-  };
-}
+import countriesSlice from './countriesSlice';
 
 const rootReducer = combineReducers({
   forms: formsSlice,
+  countries: countriesSlice,
 });
 
 export const setupStore = () =>

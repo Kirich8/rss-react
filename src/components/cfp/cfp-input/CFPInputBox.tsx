@@ -1,8 +1,9 @@
 import { UseFormRegisterReturn } from 'react-hook-form';
 import { InputFields } from './input-fields';
-import { countriesList } from '../../../utils/constants/countries-list';
 import { useState } from 'react';
 import { addPasswordStrenght } from '../../../utils/helpers/add-password-strenght';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../store';
 import DataList from './DataList';
 
 type CFPInputBoxProps = {
@@ -13,6 +14,7 @@ type CFPInputBoxProps = {
 
 const CFPInputBox = ({ name, register, errorMessage }: CFPInputBoxProps) => {
   const [value, setValue] = useState('');
+  const countriesList = useSelector((store: RootState) => store.countries.countriesList);
 
   return (
     <>
