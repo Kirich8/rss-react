@@ -1,0 +1,99 @@
+.form {
+  width: 50%;
+  padding: 40px;
+  background: rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  color: white;
+}
+
+.form__title {
+  margin-bottom: 35px;
+  font-size: 30px;
+}
+
+.form__content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.disabled__button {
+  width: 120px;
+  padding: 10px 15px;
+  background-color: transparent;
+  border: 2px solid rgb(122, 122, 122);
+  color: rgb(122, 122, 122);
+  cursor: not-allowed;
+  font-size: 16px;
+  border-radius: 10px;
+  transition: all 0.3s ease 0s;
+  margin-top: 30px;
+}
+
+.form__button {
+  width: 120px;
+  padding: 10px 15px;
+  background-color: transparent;
+  border: 2px solid lightgreen;
+  color: lightgreen;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 10px;
+  transition: all 0.3s ease 0s;
+  margin-top: 30px;
+}
+
+.form__button:hover {
+  transform: scale(1.1);
+}
+
+.form__button:active {
+  transform: scale(1);
+}
+
+.select-box,
+.check-box,
+.image-box,
+.countries-box {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 30px;
+}
+
+.select-box select {
+  width: 100px;
+  background-color: transparent;
+  border: 0;
+  border-bottom: 1px solid white;
+  color: white;
+  font-size: 16px;
+  padding: 5px;
+  cursor: pointer;
+  outline: none;
+}
+
+.check-box {
+  align-items: center;
+  margin: 0 0 15px 0;
+}
+
+.check-box .error-message,
+.image-box .error-message {
+  margin: 5px 0;
+}
+
+.check-box input {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+}
+
+.password-strenght {
+  font-size: 16px;
+  position: absolute;
+  top: -10px;
+  right: 5px;
+}

@@ -1,0 +1,20 @@
+.link {
+  width: 150px;
+  padding: 10px 15px;
+  color: white;
+  align-self: center;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 10px;
+  transition: all 0.3s ease 0s;
+  margin-top: 30px;
+  transition: all 0.3s ease 0s;
+}
+
+.link:hover {
+  color: lightgreen;
+}
+
+.link.active {
+  color: lightgreen;
+}
