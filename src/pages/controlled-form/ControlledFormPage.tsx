@@ -66,7 +66,7 @@ const ControlledFormPage = () => {
           <CFPCheckBox register={register} errorMessage={errors.conditions?.message} />
           <CFPImageBox register={register} errorMessage={errors.image?.message} />
 
-          <button className={isValid ? 'cfp__button' : 'disabled__button'} type="submit" disabled={!isValid}>
+          <button className={isValid ? 'cfp__button' : 'disabled__button'} type="submit">
             Submit
           </button>
         </form>

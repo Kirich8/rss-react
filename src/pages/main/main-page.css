@@ -1,11 +1,37 @@
-.last-form {
+.forms__item {
   width: 50%;
   border: 2px solid white;
   border-radius: 10px;
   color: white;
+  transition: all 0.5s ease 0s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  box-sizing: border-box;
 }
 
-.last-form.new {
+.forms__item.new {
   border: 2px solid lightgreen;
   color: lightgreen;
+  background-color: #39940780;
+}
+
+.item__column {
+  flex: 0 1 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+.item__column p {
+  margin: 5px 0;
+  text-align: left;
+}
+
+.item__column img {
+  width: 100%;
+  object-fit: cover;
 }

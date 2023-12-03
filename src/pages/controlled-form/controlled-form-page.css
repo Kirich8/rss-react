@@ -117,10 +117,12 @@
 
 .check-box {
   align-items: center;
+  margin: 0 0 15px 0;
 }
 
-.check-box .error-message {
-  margin: 10px 0;
+.check-box .error-message,
+.image-box .error-message {
+  margin: 5px 0;
 }
 
 .check-box input {
@@ -130,6 +132,7 @@
 }
 
 .password-strenght {
+  font-size: 16px;
   position: absolute;
   top: -10px;
   right: 5px;
