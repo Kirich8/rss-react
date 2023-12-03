@@ -1,17 +1,22 @@
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { Dispatch, SetStateAction } from 'react';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { schema } from '../../utils/yup/schema';
-import { InputFields, inputFieldsList } from '../../components/cfp/cfp-input/input-fields';
-import { IFormProps } from '../../utils/interfaces/IFormProps';
+import { schema } from '../../../utils/yup/schema';
+import { InputFields, inputFieldsList } from '../../../components/input-box/input-fields';
+import { IFormProps } from '../../../utils/interfaces/IFormProps';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { changeDataLastForm, updateListsForms } from '../../store/formsSlice';
-import CFPInputBox from '../../components/cfp/cfp-input/CFPInputBox';
-import CFPSelectBox from '../../components/cfp/cfp-select/CFPSelectBox';
-import CFPCheckBox from '../../components/cfp/cfp-check/CFPCheckBox';
-import CFPImageBox from '../../components/cfp/cfp-image/CFPImageBox';
+import { changeDataLastForm, updateListsForms } from '../../../store/formsSlice';
+import InputBox from '../../../components/input-box/InputBox';
+import CFPSelectBox from '../../../components/cfp/cfp-select/CFPSelectBox';
+import CFPCheckBox from '../../../components/cfp/cfp-check/CFPCheckBox';
+import CFPImageBox from '../../../components/cfp/cfp-image/CFPImageBox';
 
-const ControlledFormPage = () => {
+type ControlledFormPageProps = {
+  setNewClass: Dispatch<SetStateAction<string>>;
+};
+
+const ControlledFormPage = ({ setNewClass }: ControlledFormPageProps) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -24,7 +29,7 @@ const ControlledFormPage = () => {
     resolver: yupResolver(schema),
   });
 
-  const submitFormHandler: SubmitHandler<IFormProps> = (formData) => {
+  const submitForm = (formData: IFormProps) => {
     const reader = new FileReader();
 
     reader.readAsDataURL(formData.image[0]);
@@ -45,28 +50,24 @@ const ControlledFormPage = () => {
       dispatch(updateListsForms());
     };
 
-    navigate('/', { state: { from: 'controlled-form' } });
+    setNewClass('new');
+    navigate('/');
   };
 
   return (
     <>
-      <div className="cfp">
-        <h2 className="cfp__title">Controled Form</h2>
-        <form className="cfp__form" onSubmit={handleSubmit(submitFormHandler)}>
+      <div className="form">
+        <h2 className="form__title">Controled Form</h2>
+        <form className="form__content" onSubmit={handleSubmit(submitForm)}>
           {inputFieldsList.map((field, index) => (
-            <CFPInputBox
-              key={index}
-              name={InputFields[field]}
-              register={register}
-              errorMessage={errors[field]?.message}
-            />
+            <InputBox key={index} name={InputFields[field]} register={register} errorMessage={errors[field]?.message} />
           ))}
 
           <CFPSelectBox register={register} errorMessage={errors.gender?.message} />
           <CFPCheckBox register={register} errorMessage={errors.conditions?.message} />
           <CFPImageBox register={register} errorMessage={errors.image?.message} />
 
-          <button className={isValid ? 'cfp__button' : 'disabled__button'} type="submit">
+          <button className={isValid ? 'form__button' : 'disabled__button'} type="submit" disabled={!isValid}>
             Submit
           </button>
         </form>

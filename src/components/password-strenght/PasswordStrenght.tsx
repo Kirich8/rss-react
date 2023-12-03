@@ -1,4 +1,8 @@
-export const addPasswordStrenght = (password: string) => {
+type PasswordStrenghtProps = {
+  password: string;
+};
+
+const PasswordStrenght = ({ password }: PasswordStrenghtProps) => {
   let strenght = 0;
 
   if (password.replace(/[A-Z]/, '') !== password) strenght++;
@@ -33,3 +37,5 @@ export const addPasswordStrenght = (password: string) => {
       );
   }
 };
+
+export default PasswordStrenght;

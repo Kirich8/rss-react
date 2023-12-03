@@ -1,5 +1,6 @@
 @import '../layout/layout.css';
-@import '../pages/controlled-form/controlled-form-page.css';
+@import '../pages/forms/form-page.css';
+@import '../components/input-box/input-box.css';
 @import '../components/header/header.css';
 @import '../components/footer/footer.css';
 @import '../pages/main/main-page.css';

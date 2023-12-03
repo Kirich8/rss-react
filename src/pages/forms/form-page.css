@@ -1,4 +1,4 @@
-.cfp {
+.form {
   width: 50%;
   padding: 40px;
   background: rgba(0, 0, 0, 0.5);
@@ -8,55 +8,15 @@
   color: white;
 }
 
-.cfp__title {
+.form__title {
   margin-bottom: 35px;
   font-size: 30px;
 }
 
-.cfp__form {
+.form__content {
   display: flex;
   flex-direction: column;
   gap: 30px;
-}
-
-.input-box {
-  position: relative;
-}
-
-.input-box input {
-  width: 100%;
-  padding: 10px 0;
-  font-size: 16px;
-  color: #fff;
-  margin-bottom: 30px;
-  border: none;
-  border-bottom: 1px solid #fff;
-  outline: none;
-  background: transparent;
-}
-
-.input-box label {
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 10px 0;
-  font-size: 16px;
-  color: #fff;
-  pointer-events: none;
-  transition: 0.5s;
-  text-transform: capitalize;
-}
-
-.cfp__form .input-box input::placeholder {
-  color: transparent;
-}
-
-.cfp__form .input-box input:focus ~ label,
-.cfp__form .input-box input:not(:placeholder-shown) ~ label {
-  top: -25px;
-  left: 0;
-  font-size: 15px;
-  color: lightgreen;
 }
 
 .disabled__button {
@@ -72,7 +32,7 @@
   margin-top: 30px;
 }
 
-.cfp__button {
+.form__button {
   width: 120px;
   padding: 10px 15px;
   background-color: transparent;
@@ -85,11 +45,11 @@
   margin-top: 30px;
 }
 
-.cfp__button:hover {
+.form__button:hover {
   transform: scale(1.1);
 }
 
-.cfp__button:active {
+.form__button:active {
   transform: scale(1);
 }
 

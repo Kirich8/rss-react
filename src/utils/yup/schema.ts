@@ -25,7 +25,7 @@ export const schema = yup.object({
       message: 'Enter the email of the format: example@mi.us',
       excludeEmptyString: true,
     })
-    .email()
+    .email('Enter the email of the format: example@mi.us')
     .required('Email is a required field'),
 
   country: yup.string().required('Country is a required field'),
