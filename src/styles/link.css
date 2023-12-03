@@ -14,3 +14,7 @@
 .link:hover {
   color: lightgreen;
 }
+
+.link.active {
+  color: lightgreen;
+}

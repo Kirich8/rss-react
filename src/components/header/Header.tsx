@@ -1,17 +1,17 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const Header = () => {
   return (
     <header className="header">
-      <Link className="link" to={'/'}>
+      <NavLink className={({ isActive }) => (isActive ? 'link active' : 'link')} to={'/'}>
         Main
-      </Link>
-      <Link className="link" to={'/uncontrolled-form'}>
+      </NavLink>
+      <NavLink className={({ isActive }) => (isActive ? 'link active' : 'link')} to={'/uncontrolled-form'}>
         Uncontrolled form
-      </Link>
-      <Link className="link" to={'/controlled-form'}>
+      </NavLink>
+      <NavLink className={({ isActive }) => (isActive ? 'link active' : 'link')} to={'/controlled-form'}>
         Controlled form
-      </Link>
+      </NavLink>
     </header>
   );
 };
